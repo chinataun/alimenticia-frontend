@@ -25,9 +25,9 @@ export class AlimentosTemporadaService {
   private productosSubject = new BehaviorSubject<any>({});
   productos$ = this.productosSubject.asObservable();
 
-  private apiUrl = 'http://localhost:3000';  // Cambia esto a la URL de tu API
+  private apiUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com';  // Cambia esto a la URL de tu API
 
-  private backendUrl = 'http://localhost:3000/alimentos'; // Reemplaza con la URL de tu API
+  private backendUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/alimentos'; // Reemplaza con la URL de tu API
 
   constructor(private http: HttpClient,
     private httpClient: HttpClient, 

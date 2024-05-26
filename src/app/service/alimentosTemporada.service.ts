@@ -8,7 +8,7 @@ import { Mes, Categorias, Alimento, DetallesAlimentosTemporada } from '../interf
   providedIn: 'root',
 })
 export class AlimentoTemporadaServicie {
-  private backendUrl = 'http://localhost:3000/alimentos'; // Reemplaza con la URL de tu API
+  private backendUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/alimentos'; // Reemplaza con la URL de tu API
 
   constructor(private http: HttpClient) {}
 

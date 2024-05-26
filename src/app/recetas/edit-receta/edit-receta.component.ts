@@ -14,7 +14,7 @@ import { RecetasService } from '../recetas.service';
 })
 export class EditRecetaComponent implements OnInit {
   receta: any; // Reemplaza 'any' con el tipo de tu receta
-  serverUrl = 'http://localhost:3000/'; 
+  serverUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/'; 
   imagePreview!: string | ArrayBuffer;
   isLoading = false;
 

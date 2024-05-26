@@ -9,6 +9,6 @@ export class ApiFoodsService {
   constructor(private http: HttpClient) {}
 
   searchProducts(productName: string): Observable<any[]> {
-    return this.http.get<any[]>(`http://localhost:3000/apiFoods?nombre=${encodeURIComponent(productName)}`);
+    return this.http.get<any[]>(`https://alimenticia-api-62c500e9b184.herokuapp.com/apiFoods?nombre=${encodeURIComponent(productName)}`);
   }
 }

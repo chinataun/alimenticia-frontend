@@ -8,7 +8,7 @@ import { Observable, catchError } from 'rxjs';
   providedIn: 'root'
 })
 export class VotacionService {
-  private baseUrl = "http://localhost:3000/prueba/recetas"; // Reemplaza con la URL de tu backend
+  private baseUrl = "https://alimenticia-api-62c500e9b184.herokuapp.com/prueba/recetas"; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) { }
 

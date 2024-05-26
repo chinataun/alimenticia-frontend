@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
 })
 export class UsuariosService {
 
-  servidor="http://localhost:3000";
+  servidor="https://alimenticia-api-62c500e9b184.herokuapp.com";
   constructor(private http: HttpClient) {}
 
   // registrarUsuario(nombre: string, email: string, contrasena: string,confirmarContrasena:string, apodo:string, imagen:string): Observable<any> {

@@ -8,7 +8,7 @@ import { CalculadoraCalorias, CaloriasResponse } from '../interface/interface.co
   providedIn: 'root',
 })
 export class CalculadoraCaloriasService {
-  private apiUrl = 'http://localhost:3000'; // Reemplaza con la URL de tu backend
+  private apiUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com'; // Reemplaza con la URL de tu backend
 
   constructor(private http: HttpClient) {}
 

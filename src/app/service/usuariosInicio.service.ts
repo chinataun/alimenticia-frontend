@@ -7,7 +7,7 @@ import { Usuario } from '../interface/interface.component';
 })
 export class UsuariosInicioService {
 
-  servidor="http://localhost:3000";
+  servidor="https://alimenticia-api-62c500e9b184.herokuapp.com";
   constructor(private http: HttpClient) {}
 
   inicioUsuario( email: string, contrasena: string): Observable<any> {

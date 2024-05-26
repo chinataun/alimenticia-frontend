@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class InformacionNutricionalService {
-  private baseUrl  = 'http://localhost:3000/dietetica/informacion-nutricional';
+  private baseUrl  = 'https://alimenticia-api-62c500e9b184.herokuapp.com/dietetica/informacion-nutricional';
 
   constructor(private http: HttpClient) {}
 

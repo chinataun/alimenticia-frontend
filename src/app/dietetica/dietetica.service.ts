@@ -137,7 +137,7 @@ productos$ = this.productosSubject.asObservable();
   }
   // searchProducts(productName: string): Observable<any[]> {
   //   search_terms=${encodeURIComponent(nombre)}&page=1&page_size=${pageSize}&json=true&lc=${language}&countries=${country}`);
-  //   return this.http.get<any[]>(`http://localhost:3000/apiFoods?nombre=${encodeURIComponent(productName)}`);
+  //   return this.http.get<any[]>(`https://alimenticia-api-62c500e9b184.herokuapp.com/apiFoods?nombre=${encodeURIComponent(productName)}`);
   // }
 
 

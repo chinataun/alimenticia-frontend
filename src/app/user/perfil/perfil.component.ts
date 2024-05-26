@@ -22,7 +22,7 @@ export class PerfilComponent {
 
   // Update the type to include null
   imagePreview!: string | ArrayBuffer;
-  serverUrl = 'http://localhost:3000/'; 
+  serverUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/'; 
   isLoading = false; // Nueva propiedad para rastrear el estado de carga de la imagen
 
   perfilForm = this.fb.group({

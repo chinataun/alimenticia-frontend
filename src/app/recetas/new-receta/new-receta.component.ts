@@ -17,7 +17,7 @@ export class NewRecetaComponent implements OnInit {
   @Output() recipeCreated = new EventEmitter<void>();
 
   imagePreview!: string | ArrayBuffer;
-  serverUrl = 'http://localhost:3000/'; 
+  serverUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/'; 
   isLoading = false; // Nueva propiedad para rastrear el estado de carga de la imagen
   categorias: any[] | undefined;
   supermercados: any[] = this.categoriaService.getSupermercadosActivos();

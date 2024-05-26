@@ -8,7 +8,7 @@ import { Dieta } from '../interface/interface.component';
   providedIn: 'root',
 })
 export class DietaService {
-  private baseUrl = 'http://localhost:3000/dietetica/dieta'; // Reemplaza con la URL correcta de tu backend
+  private baseUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/dietetica/dieta'; // Reemplaza con la URL correcta de tu backend
 
   constructor(private http: HttpClient) {}
 

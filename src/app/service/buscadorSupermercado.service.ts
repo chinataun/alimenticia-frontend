@@ -9,7 +9,7 @@ import { ResultadoProducto } from '../interface/interface.component';
   providedIn: 'root',
 })
 export class BuscarSupermercadoService {
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com';
 
   constructor(private http: HttpClient) {}
 

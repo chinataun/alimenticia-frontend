@@ -8,7 +8,7 @@ import { RespuestaBusquedaRelacionada } from '../interface/interface.component';
     providedIn: 'root'
   })
   export class ListaComparadorService {
-    private baseUrl = 'http://localhost:3000'; // Reemplaza con la URL de tu servidor
+    private baseUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com'; // Reemplaza con la URL de tu servidor
   
     constructor(private http: HttpClient) {}
   

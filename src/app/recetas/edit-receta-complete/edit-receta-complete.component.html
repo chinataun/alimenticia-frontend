@@ -20,7 +20,7 @@
 
         <div class="receta-wrapper receta-detail__content">
           <div class="receta-wrapper__image receta-detail-content__image" *ngIf="receta">
-            <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" >
+            <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-detail" >
           </div>
           <div class="receta-wrapper__content receta-detail-content__fields">
             <div class="form-element">
@@ -77,7 +77,7 @@
               </app-form-error-container>
             </div>
           </div>
-        <!-- <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
+        <!-- <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
         <p>{{ receta.descripcion }}</p>
 
         <ul *ngIf="receta.ingredientes">
@@ -167,7 +167,7 @@
           
             <ng-template #existingImage>
               <ng-container *ngIf="receta.pasos[i]?.imagen as existing; else noImage">
-                <img mat-card-image [src]="'http://localhost:3000' + existing" alt="Imagen actual de la receta">
+                <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com' + existing" alt="Imagen actual de la receta">
               </ng-container>
             </ng-template>
           

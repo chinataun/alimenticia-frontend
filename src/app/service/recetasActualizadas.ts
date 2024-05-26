@@ -13,7 +13,7 @@ export class RecetasActualizadasService {
   private baseUrl = environment.API_BASE_URL;
   categorias$ = this.getCategories()
 
-  servidor="http://localhost:3000";
+  servidor="https://alimenticia-api-62c500e9b184.herokuapp.com";
 
   constructor(private http: HttpClient,private authService: AuthService) {}
 

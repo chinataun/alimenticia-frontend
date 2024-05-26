@@ -2,11 +2,11 @@
 <div class="receta-card">
 <mat-card>
   <mat-card-header>
-    <!-- <div mat-card-avatar class="receta-header-image" [style.background-image]="'url('http://localhost:3000/' + receta.imagen + ')'"></div> -->
+    <!-- <div mat-card-avatar class="receta-header-image" [style.background-image]="'url('https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen + ')'"></div> -->
     <mat-card-title>{{ receta.titulo }}</mat-card-title>
     <mat-card-subtitle>{{ receta.tiempo }} min</mat-card-subtitle>
   </mat-card-header>
-  <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-listing" alt="{{ receta.titulo }}">
+  <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-listing" alt="{{ receta.titulo }}">
   <mat-card-content>
     <p>{{ receta.descripcion }}</p>
   </mat-card-content>

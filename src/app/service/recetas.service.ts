@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 })
 export class RecetasService {
 
-  servidor="http://localhost:3000";
+  servidor="https://alimenticia-api-62c500e9b184.herokuapp.com";
 
   constructor(private http: HttpClient,private authService: AuthService) {}
 

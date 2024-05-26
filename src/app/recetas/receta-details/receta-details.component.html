@@ -13,7 +13,7 @@
             </div>
             <div class="receta-wrapper receta-detail__content">
               <div class="receta-wrapper__image receta-detail-content__image">
-                <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
+                <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
               </div>
               <div class="receta-wrapper__content receta-detail-content__fields">
 
@@ -96,7 +96,7 @@
                       <span class="indice">{{ i + 1 }}. </span><span class="paso-content__title">{{ paso.paso }}</span>
                     </div>
                   <div class="receta-pasos__image">
-                      <img mat-card-image *ngIf="paso.imagen" [src]="'http://localhost:3000' + paso.imagen" alt="Imagen actual de la receta">
+                      <img mat-card-image *ngIf="paso.imagen" [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com' + paso.imagen" alt="Imagen actual de la receta">
                   </div>  
                 </div>
             <!-- </div>  -->
@@ -117,7 +117,7 @@
                       <div class="voto-user__info-wrapper">
                         <div class="voto-user__info">
                           <div class="voto-user__info-image">
-                            <img [src]="'http://localhost:3000/' + voto.imagen" alt="Imagen del autor">
+                            <img [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + voto.imagen" alt="Imagen del autor">
                           </div>
                           <div class="voto-user__info-username">
                             <a [routerLink]="['/recetas', 'autor', voto.id]">{{ voto.username }}</a>

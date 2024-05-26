@@ -7,7 +7,7 @@ import { ListaCompra2, RespuestaListaCompra, ResultadoProducto } from '../interf
     providedIn: 'root'
   })
   export class ListaCompraService {
-    servidor="http://localhost:3000";
+    servidor="https://alimenticia-api-62c500e9b184.herokuapp.com";
   
     constructor(private http: HttpClient) {}
   
