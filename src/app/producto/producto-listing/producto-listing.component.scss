@@ -1,0 +1,102 @@
+:host {
+  // box-shadow: 0 1px 2px #0000001a, 0 2px 6px 2px #0000000d;
+  border-radius: 12px;
+  // min-height: 354px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  margin: 4px;
+  font-family: Roboto, sans-serif;
+  font-weight: 500;
+
+  mat-card {
+    // height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 12px;
+    // max-height: 430px;
+    gap: 8px;
+    mat-card-header {
+      display: flex;
+      justify-content: space-between;
+      padding: 16px 16px 0;
+      button {
+        border-radius: 15px;
+        background-color: #838a2a;
+        border: none;
+        &:hover {
+          cursor: pointer;
+          background-color: #838a2a;
+        }
+      }
+    }
+    mat-card-content {
+      display: flex;
+      flex-direction: column;
+      padding: 0 16px;
+      .mat-mdc-card-image.mdc-card__media {
+        max-height: 176px;
+        max-width: 176px;
+        height: fit-content;
+        width: fit-content;
+        margin: auto;
+      }
+      mat-card-title {
+        margin: 8px 0;
+        font-size: 14px;
+        line-height: 18px;
+        font-weight: 500;
+        color: #424242;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .price {
+        font-size: 16px;
+        line-height: 24px;
+        color: #424242;
+        font-weight: 700;
+        padding-right: 8px;
+        margin: 0;
+      }
+    }
+    mat-card-actions {
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      min-height: 52px;
+      padding: 8px;
+      /* align-self: center; */
+      justify-content: center;
+      button {
+        border-radius: 8px;
+        background-color: #838a2a;
+        color: white;
+        padding: 5px;
+        border: none;
+        &:hover {
+          cursor: pointer;
+          background-color: #838a2a;
+        }
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .price {
+      font-size: 16px;
+      line-height: 24px;
+      color: #424242;
+      font-weight: 600;
+      padding-right: 8px;
+      margin: 0;
+    }
+    .oferta {
+      color:red
+    }
+
+  }
+}

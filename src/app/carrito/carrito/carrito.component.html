@@ -1,0 +1,26 @@
+<ng-container  *ngIf="carritoService.isCartVisible$ | async">
+  <div class="cart-container" [class.open]="carritoService.isCartVisible$">
+
+    <div class="cart">
+      <app-carrito-item
+          *ngFor="let item of carritoItems$ | async"
+          [carritoItem]="item"
+          (carritoItemDelete)="deleteItem(item)"
+        ></app-carrito-item>
+
+      <p class="total">
+        <span class="total-label">total:</span>
+        {{ total$ | async }} €
+      </p>
+
+
+    </div>
+    <div class="actions">      
+      <div class="save-carrito" matTooltip="Registrate para tener guardar tus carritos.">
+        <button mat-icon-button (click)="saveCarrito()" [disabled]="!(isLoggedIn$ | async)" title="Guardar carrito"><mat-icon>save</mat-icon></button>
+      </div>
+      <button class="comparador-carrito" [routerLink]="['/comparador']">Comparador</button>
+      <button class="clear-carrito" mat-icon-button (click)="clearCarrito()" title="Borrar carrito"><mat-icon>delete</mat-icon></button>
+    </div>
+  </div>
+</ng-container>

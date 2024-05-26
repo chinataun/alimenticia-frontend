@@ -1,0 +1,15 @@
+
+<img
+  src="{{ carritoItem.producto.imagen }}"
+  alt="{{ carritoItem.producto.nombre }}"
+  class="thumbnail"
+/>
+<div class="info">
+  <span>{{ carritoItem.producto.nombre }}</span>
+  <span class="info-price">{{ carritoItem.producto.precioNormal }} €</span>
+</div>
+<!-- <div>Cantidad: {{ carritoItem?.cantidad }}</div> -->
+<span>{{ carritoItem.cantidad }}</span>
+<button class="delete-item" (click)="onDeleteClicked()">
+  <img src="/assets/close.svg" alt="Eliminar articulo" />
+</button>

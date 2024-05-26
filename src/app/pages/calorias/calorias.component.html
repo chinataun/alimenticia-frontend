@@ -1,0 +1,46 @@
+<!-- app/components/calculadora-calorias/calculadora-calorias.component.html -->
+
+<div>
+    <h2>Calculadora de Calorías</h2>
+  
+    <form>
+      <label for="sexo">Sexo:</label>
+      <input type="text" id="sexo" name="sexo" required />
+  
+      <label for="edad">Edad:</label>
+      <input type="number" id="edad" name="edad"  required />
+  
+      <label for="peso">Peso:</label>
+      <input type="number" id="peso" name="peso" required />
+  
+      <label for="altura">Altura:</label>
+      <input type="number" id="altura" name="altura" required />
+  
+      <label for="actividadFisica">Actividad Física:</label>
+      <select id="actividadFisica" name="actividad_fisica" [ required>
+        <option value="nada">Nada</option>
+        <option value="baja">Baja</option>
+        <option value="media">Media</option>
+        <option value="alta">Alta</option>
+        <option value="muy alta">Muy Alta</option>
+      </select>
+  
+      <button type="button" (click)="calcularCalorias()">Calcular Calorías</button>
+      <button
+  type="button"
+  (click)="calcularCaloriasUsuarioRegistrado()"
+  *ngIf="usuarioRegistrado"
+>
+  Guardar Calorías
+</button>
+
+<div *ngIf="mensajeGuardadoExitoso">
+  <p>{{ mensajeGuardadoExitoso }}</p>
+</div>
+    </form>
+  
+    <div *ngIf="caloriasRecomendadas !== undefined">
+      <p>Calorías Recomendadas: {{ caloriasRecomendadas }}</p>
+    </div>
+  </div>
+  

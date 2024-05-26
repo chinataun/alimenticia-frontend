@@ -1,0 +1,40 @@
+
+<div class="container">    
+
+<ng-container *ngIf="isLoggedInObservable$ | async">
+  <div class="submenu">
+    <div class="submenu-buttons">
+      <a mat-fab color="primary" extended routerLink="/profile/recetas-favoritas">
+        <mat-icon>favorite</mat-icon>
+        Mis recetas favoritas
+      </a>      
+      <a mat-fab color="primary" extended (click)="openNewRecipeDialog()">
+        <mat-icon>post_add</mat-icon>
+        Crear receta
+      </a>  
+      <a mat-fab color="primary" extended routerLink="/profile/mis-recetas">
+        <mat-icon>restaurant</mat-icon>
+        Mis recetas creadas
+      </a>
+    </div>
+</div>
+<mat-divider></mat-divider>
+</ng-container>
+<h2>
+  Recetas de la categoría: <span> {{ id }} </span>
+</h2>
+  <div class="row">
+
+    <app-receta-card class="receta col-lg-4 col-md-4 col-sm-6 col-xs-12" 
+
+        *ngFor="let receta of recetas$ | async"
+        [receta]="receta"
+        [showButtons]="'all'"
+        [userId]="userId$ | async"
+        (recetaCardEditRecipe)="editRecipe(receta)"
+        (recetaCardRemoveRecipe)="deleteRecipe(receta)"
+      ></app-receta-card>
+
+  
+  </div>
+</div>

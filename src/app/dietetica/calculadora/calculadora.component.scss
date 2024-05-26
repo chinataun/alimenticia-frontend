@@ -1,0 +1,73 @@
+/*# sourceMappingURL=calculadora.component.scss */
+:host {
+  margin: 32px 0;
+  .container {
+   
+    .row {
+      margin: 32px 0;
+      justify-content: center;
+      flex-direction: column;
+      .content {
+        padding: 16px;
+        border-radius: 10px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+     
+    .resultado {
+      position: relative;
+      margin-top: 20px;
+      padding: 10px;
+      background-color: #d4edda; /* verde claro */
+      color: #155724; /* verde oscuro */
+      border: 1px solid #c3e6cb;
+      border-radius: 4px;
+      text-align: center; /* centrar el texto */
+    }
+    .resultado button {
+      position: absolute;
+      right: 5px;
+      top: 0px;
+      padding: 0;
+      width: auto;
+    }
+
+  .form-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    padding: 16px;
+  }
+    @media screen and (min-width: 515px){
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto auto auto;
+        grid-template-areas: 
+          "sexo edad"
+          "peso altura"
+          "actividadFisica actividadFisica";
+        gap: 20px;
+        justify-items: center; /* Centra los elementos horizontalmente */
+        align-items: center; /* Centra los elementos verticalmente */
+      }
+      mat-form-field {
+        label {
+            top: 34px;
+            left: 8px;
+          }
+      }
+
+      .form-grid > div:nth-child(1) { grid-area: sexo; }
+      .form-grid > div:nth-child(2) { grid-area: edad; }
+      .form-grid > div:nth-child(3) { grid-area: peso; }
+      .form-grid > div:nth-child(4) { grid-area: altura; }
+      .form-grid > div:nth-child(5) { grid-area: actividadFisica; }
+      
+      .form-grid > button {
+        grid-column: 1 / span 2;
+        justify-self: center;
+      }  
+    }
+  }
+  }} }

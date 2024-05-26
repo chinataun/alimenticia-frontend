@@ -1,0 +1,74 @@
+
+
+* {
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    font-family: inherit;
+  }
+  
+  body {
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    // display: grid;
+    // grid-template: 1fr / 1fr;
+    width: 100%;
+    height: 100vh;
+    background-color: #f5f5f5;
+  }
+  
+  label {
+    display: flex;
+    flex-direction: column;
+  }
+  input,
+  textarea {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 8px 16px;
+    font-size: 1rem;
+    margin-bottom: 16px;
+  }
+  // button {
+  //   background-color:#838a2a;
+  // }
+  // input:focus,
+  // textarea:focus {
+  //   outline-color: #838a2a;
+  // }
+//   .mat-mdc-unelevated-button:not(:disabled) {
+//     background-color: #838a2a !important;
+// }
+  
+  textarea {
+    height: 200px;
+  }
+  
+  .ng-touched.ng-invalid:is(input, textarea),
+  .ng-dirty.ng-invalid:is(input, textarea) {
+    outline: 2px solid #bd0c0c;
+  }
+  
+  // .ng-dirty.ng-pending:is(input, textarea) {
+  //   outline: 2px solid #838a2a;
+  // }
+
+  .toast-container.toast-top-right {
+
+    right: 35%;
+    .toast-container .ngx-toastr {
+
+    width: 400px; // Ajusta el ancho del toast al 80% del ancho de la pantalla
+    }
+  }
+  // <div id="toast-container" class="toast-container"><div class="ng-tns-c2308121496-8 ng-star-inserted ng-trigger ng-trigger-flyInOut ngx-toastr toast-success" toast-component="" style="opacity: 1;"><!--bindings={
+  //   "ng-reflect-ng-if": "false"
+  // }--><!--bindings={}--><!--bindings={
+  //   "ng-reflect-ng-if": "false"
+  // }--><div role="alert" class="ng-tns-c2308121496-8 toast-message ng-star-inserted" aria-label="Supermercado añadido a favoritos" style=""> Supermercado añadido a favoritos </div><!--bindings={
+  //   "ng-reflect-ng-if": "true"
+  // }--><!--bindings={
+  //   "ng-reflect-ng-if": "false"
+  // }--></div>
+  // </div>
+

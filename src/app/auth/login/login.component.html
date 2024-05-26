@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="contenedor-formulario">
+<h3>Inicia Sesión</h3>
+<form [formGroup]="loginForm">
+  <label>
+    Email
+    <input type="email" name="email" formControlName="email" />
+  </label>
+  <app-form-error-container [forControl]="emailControl">
+    <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+    <app-form-error-msg forErrorCode="email"></app-form-error-msg>
+  </app-form-error-container>
+
+  <label>
+    Contraseña
+    <input type="password" name="password" formControlName="password" />
+  </label>
+  <app-form-error-container [forControl]="passwordControl">
+    <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+  </app-form-error-container>
+
+  <app-form-error-container [forControl]="loginForm">
+    <app-form-error-msg forErrorCode="invalidCredentials"></app-form-error-msg>
+  </app-form-error-container>
+  <div class="contenedor-opciones">
+    <!-- <label for="recordar" class="etiqueta-recordar">
+      <input type="checkbox" id="recordar" name="recordar"> Recordarme
+    </label> -->
+    <a href="#" class="enlace-olvido-contrasena">¿Olvidaste tu contraseña?</a>
+    <p class="mensaje-registro">¿No tienes una cuenta? <a routerLink="/signin">Regístrate</a></p>
+  </div>
+  <button
+    (click)="logIn()"
+    type="submit"
+    [disabled]="(loginForm.statusChanges | async) !== 'VALID'"
+  >
+    Iniciar Sesión
+  </button>
+</form>
+
+
+
+</div>
+
+</div>

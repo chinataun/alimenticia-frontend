@@ -1,0 +1,147 @@
+
+@use '@angular/material' as mat;
+@use 'src/alimenticia-theme.scss' as app-theme;
+:host {
+  &:has(.no-content) {
+    height: calc(100vh - 101px - 200px - 72px);
+    display: flex;
+  }
+  .container {
+    margin: 24px auto;
+    .row {
+      justify-content: center;
+      margin: 0;
+      .no-content {
+        color: mat.get-color-from-palette(app-theme.$app-primary, 500);
+      }
+      .carrito {
+        margin: 16px 0px;
+        position: relative;
+        .recetas-container {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 1rem;
+          /* width: 100%; */
+          border-radius: 10px;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          background-color: #fff;
+          justify-content: space-between;
+          /* margin: 1rem; */
+          box-sizing: border-box;
+          // display: flex;
+          flex-wrap: wrap;
+          font-size: 16px;
+          gap: 16px;
+          // justify-content: center;
+          height: 100%;          
+          .wrapper-supermarket-logo {
+            height: 70px;
+            display: flex;
+            width: 100%;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+          
+            .supermarket-logo {
+              height: inherit;
+              width: 100%;
+            }
+          }
+          .carrito-items {
+            margin-bottom: 16px;
+            width: 100%;
+            .content-info {
+              display: flex;
+              align-items: center;
+              gap: 8px;
+              margin-bottom: 8px;
+              flex-wrap: wrap;
+              padding: 0;
+              justify-content: center;              
+              .thumbnail {
+                width: 64px;
+                height: 64px;
+                background-color: #d9dfe5;
+                border-radius: 50%;
+                padding: 2px;
+              }
+              span {
+                flex-grow: 1;
+              }   
+            }
+            .content-price {
+              display: flex;
+              justify-content: space-between;
+              flex-wrap: wrap;
+              .price {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                span {
+                  font-weight: 600;
+                }
+              }
+              .cantidad {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                span {
+                  font-weight: 600;
+                }
+              }
+            }
+          }        
+
+          .carrito-footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap-reverse;
+            gap: 8px;
+            width: 100%;
+            .total {
+              font-size: 24px;
+              font-weight: 600;
+              flex-grow: 1;
+              text-align: center;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  :host {
+    .container {
+      .row {
+        .carrito {
+          .recetas-container {   
+            .carrito-items {
+              .content-info {
+                flex-wrap: nowrap;   
+              }
+            } 
+            .carrito-footer {
+              justify-content: space-between;
+              flex-wrap: wrap-reverse;
+              .total {
+                text-align: right;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+

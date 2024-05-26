@@ -1,0 +1,109 @@
+<div class="container" [class.no-content]="!(productos$ | async)">
+  <div class="row">
+    <div class="content">
+      <!-- <ng-container *ngIf="selectedSupermarket"> -->
+          <h3>Realice una búsqueda para consultar información nutricional</h3>
+          <div class="off">
+            <a href="https://es.openfoodfacts.org/">
+              <img [src]="'assets/open_food_facts.svg'" alt="open food facts">
+            </a>
+            <span>Información ofrecida por <a target="_blank" href="https://es.openfoodfacts.org/">Open Food Facts</a></span>
+          </div>
+        <div class="search">
+            <!-- <label for="termino">Buscar Productos:</label> -->
+            <!-- <input type="text" id="termino" [(ngModel)]="termino" placeholder="Buscar productos..."/> -->
+
+            <form [formGroup]="nutricionForm" (ngSubmit)="buscar()">
+              <mat-form-field appearance="fill">
+                <mat-label>Buscar productos</mat-label>
+                <input matInput type="text" id="termino" formControlName="termino" placeholder="Buscar productos...">
+              </mat-form-field>
+              <app-form-error-container [forControl]="terminoControl">
+                <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+            </app-form-error-container>
+              <!-- <button mat-raised-button type="submit">Buscar</button> -->
+              <button mat-raised-button color="primary" type="submit" [disabled]="nutricionForm.invalid">Buscar</button>
+
+            </form>
+
+        </div>
+    </div>
+        <div class="loading" *ngIf="isLoading">     
+          <img src="assets/loading/icons8-carro.gif" alt="Loading...">
+        </div>
+        <ng-container *ngIf="productos$ | async as productos">
+            <div class="product-container" *ngFor="let product of productos">
+                
+                        <div class="image-section">
+                            <img [src]="product.imageUrl" alt="Imagen del producto" class="product-img">
+                        </div>
+                        <mat-tab-group>
+                          <mat-tab label="Datos"> 
+                            <div class="product-info">
+                              <h3 *ngIf="product.title; else noTitle">{{ product.title }}</h3>
+                              <ng-template #noTitle><p>Sin informacion del título</p></ng-template>
+                              
+                                <span *ngIf="product.ingredientes; else noInfo">
+                                  <p>Ingredientes ({{product.numIngredientes}}): </p>{{product.ingredientes}}
+                                </span>
+                                <ng-template #noInfo><p>Sin información de los ingredientes</p></ng-template>
+                                <!-- Agrega otros detalles del producto aquí -->
+                                <!-- <button (click)="showNutritionalInfo(product)">Información Nutricional</button> -->
+                                <!-- <button (click)="loadAction(product)">Cargar Acción</button> -->
+                              
+                                <span *ngIf="product.alergenos; else noInfoAlergenos">
+                                  <p>Alérgenos</p>{{product.alergenos}}
+                                </span>
+                                <ng-template #noInfoAlergenos><p>Sin información de los alergenos</p></ng-template>
+                                <div class="scores">
+                                    <div class="eco" *ngIf="product.ecoScore"><img src="https://static.openfoodfacts.org/images/attributes/dist/ecoscore-{{ product.ecoScore }}.svg" alt="ecoScore"></div>
+                                    <div class="nova" *ngIf="product.novaGroup"><img src="https://static.openfoodfacts.org/images/attributes/dist/nova-group-{{ product.novaGroup }}.svg" alt="novaGroup"></div>
+                                    <div class="nutri" *ngIf="product.nutriScore"><img src="https://static.openfoodfacts.org/images/attributes/dist/nutriscore-{{ product.nutriScore }}.svg" alt="nutriScore"></div>
+                                </div>
+                            </div>
+                          </mat-tab>
+
+                          <mat-tab label="Información nutricional"> 
+                            <div class="product-info-nutricion">
+                              <p><span>Energía: </span>{{product.nutritionalInfo['energy-kj_100g']}} {{product.nutritionalInfo['energy-kj_unit']}} ({{product.nutritionalInfo['energy-kcal_100g']}} {{product.nutritionalInfo['energy-kcal_unit']}})</p>
+                              <p><span>Grasas: </span>{{product.nutritionalInfo.fat_100g}} {{product.nutritionalInfo.fat_unit}}</p>
+                              <p><span> - Grasas saturadas: </span>{{product.nutritionalInfo['saturated-fat_100g']}} {{product.nutritionalInfo['saturated-fat_unit']}}</p>
+                              <p><span>Hidratos de carbono: </span>{{product.nutritionalInfo.carbohydrates_100g}} {{product.nutritionalInfo.carbohydrates_unit}}</p>
+                              <p><span> - Azúcares: </span>{{product.nutritionalInfo.sugars_100g}} {{product.nutritionalInfo.sugars_unit}}</p>
+                              <p><span>Fibra alimentaria: </span>{{product.nutritionalInfo.fiber_100g}} {{product.nutritionalInfo.fiber_unit}}</p>
+                              <p><span>Proteínas: </span>{{product.nutritionalInfo.proteins_100g}} {{product.nutritionalInfo.proteins_unit}}</p>
+                              <p><span>Sal: </span>{{product.nutritionalInfo.salt_100g}} {{product.nutritionalInfo.salt_unit}}</p>
+                            </div>
+                          </mat-tab>
+                        </mat-tab-group>
+
+                    
+            </div>
+            <ng-container *ngIf="productos.length > 0">
+                <mat-paginator [length]="totalProducts$ | async"
+                  [pageSize]="10"
+                  [pageSizeOptions]="[5, 10, 20]"
+                  (page)="pageChanged($event)">
+                </mat-paginator>
+              </ng-container>
+        </ng-container>
+    
+  </div>
+</div>
+    <!-- <ng-template #isLoading> -->
+
+    <!-- </ng-template> -->
+    <!-- <ng-template #loading>
+      <div class="loading">     
+        <img src="assets/loading/icons8-carro.gif" alt="Loading...">
+      </div>
+    </ng-template> -->
+<!-- 
+    <ng-container *ngIf="productos.length > 0">
+        <mat-paginator [length]="totalProducts$ | async"
+          [pageSize]="10"
+          [pageSizeOptions]="[5, 10, 20]"
+          (page)="pageChanged($event)">
+        </mat-paginator>
+      </ng-container>
+    </mat-paginator> -->

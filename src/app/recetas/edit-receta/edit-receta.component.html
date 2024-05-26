@@ -1,0 +1,67 @@
+<form [formGroup]="recipeForm" (ngSubmit)="onUpdate()">
+  
+  <mat-form-field>
+    <mat-label> Titulo </mat-label>
+    <input matInput placeholder="Título" formControlName="titulo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Descripción </mat-label>
+    <textarea matInput placeholder="Descripción" formControlName="descripcion"></textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Supermercado </mat-label>
+    <input matInput placeholder="Supermercado" formControlName="supermercado">
+  </mat-form-field>
+<!--   <mat-form-field>
+    <mat-label> Imagen </mat-label>
+    <input matInput placeholder="Imagen" formControlName="imagen">
+  </mat-form-field> -->
+  <div class="image-preview" *ngIf="imagePreview">
+    <img [src]="imagePreview" alt="Image preview" />
+  </div>
+  <div class="file-input-container">
+    <label for="fileInput" class="file-input-label">Upload Image</label>
+    <input id="fileInput" type="file" (change)="onFileChange($event)" />
+  </div>
+
+  <mat-form-field>
+    <mat-label> Comensales </mat-label>
+    <input matInput placeholder="Comensales" formControlName="comensales">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Tiempo </mat-label>
+    <input matInput placeholder="Tiempo" formControlName="tiempo">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Id Dificultad </mat-label>
+    <input matInput placeholder="Id Dificultad" formControlName="categoriaId">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label> Id Categoria </mat-label>
+    <input matInput placeholder="Id Categoria" formControlName="idDificultad">
+  </mat-form-field>
+
+
+  <!-- FormArray para ingredientes -->
+  <div formArrayName="ingredientes">
+    <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i">
+      <input formControlName="ingrediente" placeholder="Ingrediente">
+      <input formControlName="cantidad" placeholder="Cantidad">
+      <button type="button" (click)="deleteIngrediente(i)">Eliminar ingrediente</button>
+    </div>
+    <button type="button" (click)="addIngrediente()">Agregar ingrediente</button>
+  </div>
+
+  <!-- FormArray para pasos -->
+  <div formArrayName="pasos">
+    <div *ngFor="let paso of pasos.controls; let i = index">
+      <input [formControlName]="i" placeholder="Paso">
+      <button type="button" (click)="deletePaso(i)">Eliminar paso</button>
+    </div>
+    <button type="button" (click)="addPaso()">Agregar paso</button>
+  </div>
+
+
+  
+  <button mat-raised-button color="primary" type="submit">Actualizar</button>
+</form>

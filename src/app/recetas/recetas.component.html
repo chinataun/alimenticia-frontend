@@ -1,0 +1,62 @@
+<!-- <div class="row">
+    <div class="col"> -->
+      
+      <ng-container *ngIf="isLoggedInObservable$ | async">
+        <div class="submenu">
+          <div class="submenu-buttons">
+
+            <a mat-fab color="primary" extended routerLink="/profile/recetas-favoritas">
+              <mat-icon>favorite</mat-icon>
+              Mis recetas favoritas
+            </a>      
+            <a mat-fab color="primary" extended (click)="openNewRecipeDialog()">
+              <mat-icon>post_add</mat-icon>
+              Crear receta
+            </a>  
+            <a mat-fab color="primary" extended routerLink="/profile/mis-recetas">
+              <mat-icon>restaurant</mat-icon>
+              Mis recetas creadas
+            </a>
+          </div>
+      </div>
+      <mat-divider></mat-divider>
+      </ng-container>
+
+
+<!-- <div class="recetas-container">
+  <app-receta-listing
+    *ngFor="let receta of recipes$ | async"
+    [receta]="receta"
+  ></app-receta-listing>
+</div> -->
+<!-- <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</mat-option> -->
+<!-- <div class="container"> -->
+  <!-- <div class="categoria-wrapper" *ngIf="categorias">
+    <h2>Filter by category</h2>
+        <select (change)="onCategoryChange($event)">
+          <option value="">Todas</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</option>
+        </select>
+  </div> -->
+  <div class="categoria-wrapper" *ngIf="categorias">
+    <button class="categoria" [ngClass]="{'activo': 0 === categoriaSeleccionada}" (click)="onCategorySelect(0)">
+      Todas
+    </button>
+    <button *ngFor="let categoria of categorias" class="categoria" [ngClass]="{'activo': categoria.id === categoriaSeleccionada}" (click)="onCategorySelect(categoria.id)">
+      {{ categoria.nombre }}
+    </button>
+  </div>
+  <div class="container">
+    <div class="row">
+      
+    <app-receta-card class="receta col-lg-4 col-md-4 col-sm-6 col-xs-12" 
+      *ngFor="let receta of filteredRecetas$ | async"
+      [receta]="receta"
+      [showButtons]="'all'"
+      [userId]="userId$ | async"
+    ></app-receta-card>
+  
+</div>
+  </div>
+
+<!-- </div> -->

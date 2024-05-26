@@ -1,0 +1,167 @@
+<div class="container">
+  <div class="row">
+    <div class="receta-detail__wrapper" *ngIf="receta$ | async as receta">
+      <div class="receta-detail">
+            <h2>{{ receta.titulo }}</h2>
+            <div class="receta-actions receta-detail__actions">
+              <button mat-icon-button *ngIf="receta.userId == (userId$ | async)" (click)="OnEditReceta()">
+                <mat-icon style="color: blue;">edit</mat-icon>
+              </button>
+              <button mat-icon-button *ngIf="receta.userId == (userId$ | async)" (click)="OnDeleteReceta()">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <div class="receta-wrapper receta-detail__content">
+              <div class="receta-wrapper__image receta-detail-content__image">
+                <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
+              </div>
+              <div class="receta-wrapper__content receta-detail-content__fields">
+
+                <div>
+                  <span>Fecha de publicación</span>
+                  <p>{{ receta.createdAt | date: 'dd/MM/yyyy' }}</p>
+                </div>
+
+                <div>
+                  <span>Categoria</span>
+                  <p><a [routerLink]="['/recetas', 'categoria', receta.categoriaReceta.nombre.toLowerCase()]">{{ receta.categoriaReceta.nombre }}</a></p>
+
+                </div>
+                <div>
+                  <span>Dificultad</span>
+                  <p>{{ receta.dificultad }}</p>   
+                </div>
+                <div>
+                  <span>Comensales</span>
+                  <p>{{ receta.comensales }}</p>
+                </div>
+                <div>
+                  <span>Tiempo de preparación</span>
+                  <p>{{ receta.tiempo }}</p>
+                </div>
+
+                <div>
+                  <span>Rating</span>
+
+                  <div class="rating" *ngIf="receta.rating as rating">
+                    <!-- Estrellas completas -->
+                    <mat-icon *ngFor="let star of range(floor(rating))" [color]="'accent'">star</mat-icon>
+                    
+                    <!-- Media estrella, si el rating tiene decimales -->
+                    <mat-icon *ngIf="rating % 1 > 0" [color]="'accent'">star_half</mat-icon>
+                    
+                    <!-- Estrellas vacías -->
+                    <mat-icon *ngFor="let star of range(5 - ceil(rating))" [color]="'disabled'">star_border</mat-icon>
+                  </div>
+                </div>
+                <div>
+                  <span>Autor</span>
+                  <p><a [routerLink]="['/recetas', 'autor', receta.autor.id]">{{ receta.autor.username }}</a></p>
+
+                </div>
+                <div>
+                  <span>Precio</span>
+                  <p>{{ total$ | async }} €</p>
+                </div>
+
+              </div>
+            </div>
+
+      </div>
+
+    </div>
+    <div class="receta-detail__wrapper" *ngIf="receta$ | async as receta">
+      <div class="receta-detail__caracteristicas receta-caracteristicas">
+
+        <mat-tab-group>
+          <mat-tab class="" label="Ingredientes" *ngIf="receta$ | async as receta">
+            <!-- <div class="receta-ingredientes receta-detail-tab__ingredientes" *ngIf="receta$ | async as receta"> -->
+              <div *ngFor="let ingrediente of receta.ingredientes" class="ingrediente-linea">
+                <img [src]="ingrediente.imagen" class="producto-imagen">
+                <div class="producto-content">
+                  <span class="producto-content__title">{{ ingrediente.nombre }}</span>                
+                  <div>     
+                    <span class="producto-content__precio"><span>Precio:</span> {{ ingrediente.precio }} €</span>
+                    <span class="producto-content__precio"><span>Cantidad:</span> {{ ingrediente.cantidad }}</span>
+                  </div> 
+                </div>
+              </div>
+            <!-- </div> -->
+          </mat-tab>
+    
+          <mat-tab class="receta-detail-tab__pasos" label="Pasos" *ngIf="receta$ | async as receta">
+            <!-- <div class="receta-ingredientes receta-pasos" > -->
+                <div *ngFor="let paso of receta.pasos; let i = index" class="receta__pasos">
+                    <div class="receta-pasos__paso">
+                      <span class="indice">{{ i + 1 }}. </span><span class="paso-content__title">{{ paso.paso }}</span>
+                    </div>
+                  <div class="receta-pasos__image">
+                      <img mat-card-image *ngIf="paso.imagen" [src]="'http://localhost:3000' + paso.imagen" alt="Imagen actual de la receta">
+                  </div>  
+                </div>
+            <!-- </div>  -->
+          </mat-tab>
+    
+          <mat-tab label="Votaciones" *ngIf="receta$ | async as receta">
+            <ng-container *ngIf="receta.votos">
+              <!-- <div *ngIf="voteInfo.voted">
+                <p>Rating: {{ voteInfo.rating }}</p>
+                <p>Comentario: {{ voteInfo.comment }}</p>
+              </div> -->
+              <!-- <div class="receta-votaciones-tab"> -->
+                <ng-container *ngIf="receta.votos.length == 0; else votos">
+                  <h3>La receta no tiene votos o comentarios</h3>
+                </ng-container>
+                <ng-template #votos>
+                  <div class="votaciones-tab__voto" *ngFor="let voto of receta.votos">   
+                      <div class="voto-user__info-wrapper">
+                        <div class="voto-user__info">
+                          <div class="voto-user__info-image">
+                            <img [src]="'http://localhost:3000/' + voto.imagen" alt="Imagen del autor">
+                          </div>
+                          <div class="voto-user__info-username">
+                            <a [routerLink]="['/recetas', 'autor', voto.id]">{{ voto.username }}</a>
+                          </div>
+                        </div>
+                        <div class="voto-user__rating">
+                          <!-- Estrellas completas -->
+                          <mat-icon *ngFor="let star of range(floor(voto.rating.rating))" [color]="'accent'">star</mat-icon>
+                          
+                          <!-- Media estrella, si el rating tiene decimales -->
+                          <mat-icon *ngIf="voto.rating.rating % 1 > 0" [color]="'accent'">star_half</mat-icon>
+                          
+                          <!-- Estrellas vacías -->
+                          <mat-icon *ngFor="let star of range(5 - ceil(voto.rating.rating))" [color]="'disabled'">star_border</mat-icon>
+                        </div>
+                      </div>    
+                      <div class="voto-user__comment" *ngIf="voto.rating.comment">
+                        <p>{{ voto.rating.comment }}</p>
+                      </div>      
+                      
+                  </div>    
+                </ng-template>
+    
+                  
+                <!-- separador -->
+                <ng-container *ngIf="(sameAutor | async) === false">
+
+                  <ng-container *ngIf="voteInfo$ | async as voteInfo">
+                    <div *ngIf="!voteInfo.voted">
+                      <mat-divider></mat-divider>
+                      <app-votes (vote)="votar($event.rating, $event.comment)"></app-votes>
+                    </div>
+                  </ng-container>
+
+                </ng-container>
+              <!-- </div> -->
+            </ng-container>
+
+          <!-- <app-votes *ngIf="(isVoted$ | async) === false" [comment]="comentarioDelUsuario" (vote)="votar($event.rating, $event.comment)"></app-votes> -->
+        </mat-tab>
+        </mat-tab-group>
+      </div>   
+    
+    </div>
+    
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<!-- new-recipe-dialog.component.html -->
+<h1 mat-dialog-title>Crear receta</h1>
+<div mat-dialog-content>
+    <form [formGroup]="recipeForm">
+      <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label> Titulo </mat-label>
+        <input matInput placeholder="Título" formControlName="titulo">
+      </mat-form-field>
+        <app-form-error-container [forControl]="tituloControl">
+          <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+      </div>
+
+      <div class="form-element">
+        <mat-form-field>
+            <mat-label>Supermercado</mat-label>
+            <mat-select name="supermercado" formControlName="supermercado">
+                <mat-option *ngFor="let supermercado of supermercados" [value]="supermercado.name | lowercase">{{supermercado.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <app-form-error-container [forControl]="supermercadoControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+      </div>
+      <div class="form-element">
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label>Comensales</mat-label>
+          <input matInput  type="number" formControlName="comensales">
+        </mat-form-field>
+        <app-form-error-container [forControl]="comensalesControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+      </div>
+        <div class="form-element">
+        <mat-form-field subscriptSizing="dynamic">
+          <mat-label>Tiempo de preparación</mat-label>
+          <input matInput  type="number" formControlName="tiempo">
+        </mat-form-field>
+        <mat-hint>Introduce el tiempo en minutos</mat-hint>
+        <app-form-error-container [forControl]="tiempoControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+      </div>
+      <div class="form-element">
+          <mat-form-field>
+            <mat-label>Categoría</mat-label>
+            <mat-select name="categoria" formControlName="categoriaId">
+              <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        <app-form-error-container [forControl]="categoriaIdControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+      </div>
+      <div class="form-element">
+        <mat-form-field>
+          <mat-label>Dificultad</mat-label>
+          <mat-select name="dificultad" formControlName="dificultad">
+            <mat-option *ngFor="let dificultad of dificultades" [value]="dificultad.nombre | removeAccents | lowercase">{{dificultad.nombre}}</mat-option>
+
+          </mat-select>
+        </mat-form-field>
+      <app-form-error-container [forControl]="dificultadControl">
+          <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+      </app-form-error-container>
+    </div>
+
+  <div class="form-element image">
+        <label for="imagen">Imagen principal de la receta</label>    
+        <!-- <img *ngIf="imagePreview" [src]="imagePreview" style="width: 100px; height: 100px;" alt="Image preview">
+        <input type="file" id="imagen" formControlName="imagen" (change)="onImageChange($event)"> -->
+        <!-- <div *ngIf="isLoading; else imagePreviewTemplate"><mat-spinner style="width: 30px; height: 30px;" ></mat-spinner></div>
+        <ng-template #imagePreviewTemplate>
+        <img [src]="imagePreview" class="image-avatar-preview" alt="Image preview">
+        </ng-template> -->
+        <img *ngIf="imagePreview" class="image-preview" [src]="imagePreview" alt="Image preview">
+        <!-- <div *ngIf="isLoading; else imagePreviewTemplate"><mat-spinner style="width: 30px; height: 30px;" ></mat-spinner></div>
+            <ng-template #imagePreviewTemplate>
+            <img [src]="imagePreview" class="image-avatar-preview" alt="Image preview">
+            </ng-template> -->
+        <input type="file" id="imagen" formControlName="imagen" (change)="onImageChange($event)">   
+      </div>
+
+      <app-form-error-container [forControl]="recipeForm">
+            <app-form-error-msg forErrorCode="invalidCredentials"></app-form-error-msg>
+          </app-form-error-container>
+      <div class="actions" mat-dialog-actions>
+            <button mat-raised-button color="primary" class="cancel" mat-button (click)="onNoClick()">Cancelar</button>
+            <button mat-raised-button color="primary" class="create" mat-button 
+                (click)="create()" 
+                color="primary" 
+                type="submit" 
+                [disabled]="(recipeForm.statusChanges | async) !== 'VALID'">
+                Crear
+            </button>
+        </div>
+        <!-- <button
+        (click)="create()"
+        type="submit"
+        [disabled]="(recipeForm.statusChanges | async) !== 'VALID'"
+      >
+        Iniciar Sesión
+      </button> -->
+    </form>
+</div>

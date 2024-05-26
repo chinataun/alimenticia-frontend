@@ -1,0 +1,68 @@
+<div class="container">
+
+  <div class="row">
+
+    <div class="no-content" *ngIf="carritoVacio; else novacio">
+      <h2>No hay productos para comparar</h2>
+    </div>
+    <ng-template #novacio>
+      <div class="loading" *ngIf="loading">
+        <img src="assets/loading/icons8-carro.gif" alt="Loading...">
+      </div>
+  
+  
+      <!-- <div class="comparativas" *ngIf="!loading && productosSimilares"> -->
+      <ng-container *ngIf="!loading">
+        <div class="col-md-6 carrito" *ngIf="cartProducts$ | async as cartProducts">
+          <div class="recetas-container">
+            <div class="wrapper-supermarket-logo">
+              <img class="supermarket-logo" alt="supermarket logo" src="assets/logo-{{ cartProducts[0].producto.supermercado }}.svg">
+            </div>
+            <div class="carrito-items" *ngFor = "let carritoItem of cartProducts$ | async">
+              <div class="content-info">
+                <img
+                src="{{ carritoItem.producto.imagen }}"
+                alt="{{ carritoItem.producto.nombre }}"
+                class="thumbnail"
+              />
+                <span>{{ carritoItem.producto.nombre }}</span>
+              </div>
+              <div class="content-price">
+                <span class="price"><span>Precio: </span>{{ carritoItem.producto.precioNormal }} €</span>    
+                <span class="cantidad"><span>Cantidad: </span>{{ carritoItem.cantidad }}</span>
+              </div>
+            </div>
+            <span class="total" [class.barato]="carritoBarato">Total: {{totalCarrito}}€</span>
+          </div>
+        </div>
+      
+        <div class="col-md-6 carrito" *ngFor="let supermercado of objectKeys(productosSimilares)">
+          <div class="recetas-container">
+            <div class="wrapper-supermarket-logo">
+              <img class="supermarket-logo" alt="supermarket logo" src="assets/logo-{{ supermercado }}.svg">
+            </div>
+            <div class="carrito-items" *ngFor = "let carritoItem of productosSimilares[supermercado].productos">
+              <div class="content-info">
+                <img
+                src="{{ carritoItem.producto.imagen }}"
+                alt="{{ carritoItem.producto.nombre }}"
+                class="thumbnail"
+              />
+                <span>{{ carritoItem.producto.nombre }}</span>
+              </div>
+              <div class="content-price">
+                <span class="price"><span>Precio: </span>{{ carritoItem.producto.precioNormal }} €</span>
+        
+                <span class="cantidad"><span>Cantidad: </span>{{ carritoItem.cantidad }}</span>
+              </div>
+            </div>
+            <span class="total" [class.caro]="productosSimilares[supermercado].caro" [class.barato]="productosSimilares[supermercado].barato">Total: {{ productosSimilares[supermercado].total }}€</span>
+          </div>
+        </div>
+      </ng-container>
+    </ng-template>
+    
+
+
+  </div>
+</div>

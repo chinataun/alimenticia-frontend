@@ -1,0 +1,112 @@
+<div class="registro-wrapper">
+  <div class="registro-header">
+    <img class="logo" src="../../../assets/user-default.png" alt="img login">
+    <h3>Registro de usuario</h3>
+
+  </div>  
+  <div *ngIf="!loading" class="registro-formulario">
+
+
+      <form [formGroup]="signinForm">
+
+        <div class="form-element">
+          <mat-form-field >
+            <mat-label>Nombre de usuario</mat-label>
+            <input matInput type="text" name="username" formControlName="username">
+          </mat-form-field>
+          <app-form-error-container [forControl]="usernameControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+            <app-form-error-msg forErrorCode="minLength"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div class="form-element">
+          <mat-form-field >
+            <mat-label>Correo electrónico</mat-label>
+            <input matInput type="email" name="email" formControlName="email">
+          </mat-form-field>
+          <app-form-error-container [forControl]="emailControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+            <app-form-error-msg forErrorCode="email"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+     
+        <div class="form-element">
+          <mat-form-field >
+            <mat-label>Código postal</mat-label>
+            <input matInput type="number" name="cp" formControlName="cp">
+          </mat-form-field>
+          <app-form-error-container [forControl]="cpControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              <app-form-error-msg forErrorCode="minLength"></app-form-error-msg>
+              <app-form-error-msg forErrorCode="min"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div class="form-element">
+          <mat-form-field >
+            <mat-label>Contraseña</mat-label>
+            <input matInput type="password" name="password" formControlName="password">
+          </mat-form-field>
+          <app-form-error-container [forControl]="passwordControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div class="form-element">
+          <mat-form-field >
+            <mat-label>Repetir Contraseña</mat-label>
+            <input matInput type="password" name="password_confirm" formControlName="password_confirm">
+          </mat-form-field>
+          <app-form-error-container [forControl]="passwordConfirmControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+            <app-form-error-msg forErrorCode="matchPassword" customMsg="Las contraseñas no coinciden"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+        <button
+          (click)="signIn()"
+          type="submit"
+          [disabled]="(signinForm.statusChanges | async) !== 'VALID'"
+        >
+          Iniciar Sesión
+        </button>
+        <app-form-error-container [forControl]="signinForm">
+          <app-form-error-msg
+            forErrorCode="passwordsMustBeEqual"
+          ></app-form-error-msg>
+        </app-form-error-container>
+      
+        <app-form-error-container [forControl]="signinForm">
+          <app-form-error-msg forErrorCode="invalidCredentials"></app-form-error-msg>
+        </app-form-error-container>
+
+
+      </form>
+<!-- 
+
+      <div class="form-floating mb-3 mt-3">
+          <input type="text" [(ngModel)]="username" class="form-control" placeholder="Ingrese usuario">
+          <label>Usuario</label>
+            <app-form-error-container [forControl]="emailControl">
+    <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+    <app-form-error-msg forErrorCode="email"></app-form-error-msg>
+  </app-form-error-container>
+      </div>
+      <div class="form-floating mb-3">
+          <input type="password" [(ngModel)]="password" class="form-control" placeholder="Ingrese password">
+          <label>Password</label>
+      </div>
+      <div class="form-floating mb-3">
+          <input type="password" [(ngModel)]="confirmPassword" class="form-control" placeholder="Ingrese password de nuevo">
+          <label>Repetir Password</label>
+      </div>
+      <div class="d-grid gap-2 mb-3">
+          <button type="button" (click)="signIn()" class="btn btn-primary btn-lg">Aceptar</button>
+      </div>
+      <a routerLink="/login">Volver</a>
+  </div>
+  <div class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div> -->
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="row">
+    <div class="no-content" *ngIf="carritosVacio; else novacio">
+      <h2>No hay listas guardadas</h2>
+    </div>
+    <ng-template #novacio>
+      <div class="col-lg-4 col-md-6 carrito" *ngFor="let item of carritos$ | async let i=index">
+        <div [id]="'recetas-container-' + item.id" class="recetas-container">
+            <div class="wrapper-supermarket-logo">
+              <img class="supermarket-logo" alt="supermarket logo" src="assets/logo-{{ item.carrito.supermercado }}.svg">
+            </div>
+
+            <div class="carrito-items" *ngFor="let cartItem of item.carrito.productos">
+              <div class="content-info">
+                <img src="{{ cartItem.producto.imagen }}" alt="{{ cartItem.producto.nombre }}" class="thumbnail" />
+                <span>{{ cartItem.producto.nombre }}</span>
+              </div>
+              <div class="content-price">
+                <span class="price"><span>Precio: </span>{{ cartItem.producto.precioNormal }} €</span>
+                <span class="cantidad"><span>Cantidad: </span>{{ cartItem.cantidad }}</span>
+              </div>
+            </div>
+            <div class="carrito-footer">
+              <div class="carrito-actions">
+                <button mat-icon-button class="download-button" color="primary" title="Descargar en pdf" (click)="downloadPDF('recetas-container-' + item.id)">
+                  <mat-icon>picture_as_pdf</mat-icon>
+                </button>
+                <button class="eliminar-button" color="primary" mat-icon-button (click)="eliminarCarrito(item.id)" title="Eliminar lista"><mat-icon>delete</mat-icon></button>
+              </div>
+              <span class="total">Total: {{ item.carrito.total }}€</span>
+            </div>
+          </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

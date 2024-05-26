@@ -1,0 +1,15 @@
+<!-- <app-header></app-header> -->
+<app-menu-navigation></app-menu-navigation>
+<app-carrito *ngIf="carritoService.isCartVisible$ | async"></app-carrito>
+<div class="banner-superior banner-img" [ngStyle]="{'background-image': 'url(' + bannerImage + ')'}"></div>
+
+<div class=”container-fluid”>
+  
+  <!-- <div class="container-fluid back" [ngStyle]="{'background-image': 'url(assets/fondo-carro.svg)'}"> -->
+
+<!-- <div class="container main-content"> -->
+  <router-outlet></router-outlet>
+  
+<!-- </div> -->
+</div>
+<app-footer></app-footer>

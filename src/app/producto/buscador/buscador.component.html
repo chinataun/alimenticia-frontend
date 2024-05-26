@@ -1,0 +1,85 @@
+<div class="container" [class.no-content]="!(hayProductos$ | async)">
+  <div class="row">
+    <div class="content">
+      <!-- <ng-container *ngIf="selectedSupermarket"> -->
+        <div class="super" *ngIf="selectedSupermarket$ | async as selectedSupermarket">
+          <h3>Supermercado seleccionado para la búsqueda</h3>
+          <div class="selected-super" matTooltip="Pulsa para cambiar el supermercado">
+            <img [src]="'assets/logo-' + selectedSupermarket + '.svg'" alt="{{selectedSupermarket}}" (click)="openSupermercadoModal()">
+            <span>Pulsa el icono para cambiar de supermercado</span>
+          </div>
+        </div>
+        <!-- <img [src]="userProfile.supermercado" alt="Supermercado" width="30" height="30"> -->
+      <!-- </ng-container> -->
+      <div class="search">
+        <!-- <label for="termino">Buscar Productos:</label> -->
+        <!-- <input type="text" id="termino" [(ngModel)]="termino" placeholder="Buscar productos..."/> -->
+        <!-- <form (submit)="onSubmit($event)">
+          <input type="text" id="termino" name="termino" [(ngModel)]="termino" placeholder="Buscar productos...">
+          <button type="submit">Buscar</button>
+        </form> -->
+        <form [formGroup]="compraForm" (ngSubmit)="buscar()">
+          <mat-form-field appearance="fill">
+            <mat-label>Buscar productos</mat-label>
+            <input matInput type="text" id="termino" formControlName="termino" placeholder="Buscar productos...">
+          </mat-form-field>
+          <app-form-error-container [forControl]="terminoControl">
+            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+          <!-- <button mat-raised-button type="submit">Buscar</button> -->
+          <div class="form-actions">
+          <button mat-flat-button color="primary" type="submit" [disabled]="compraForm.invalid">Buscar</button>
+          <button mat-flat-button color="primary" *ngIf="hayProductos$ | async" (click)="resetFilters()">Resetear filtros</button>
+        </div>
+        </form>
+    
+
+      </div>
+
+    </div>
+    <ng-container *ngIf="hayProductos$ | async">
+      <div class="categorias-wrapper" *ngIf="categorias$ | async as categorias">
+        <!-- Menú principal con las categorías -->
+        <div class="categorias-wrapper__categoria menu">
+          
+            <button *ngFor="let categoria of categorias" 
+            class="categoria"
+            [class.active]="categoria.categoria === selectedCategory" 
+            (click)="onCategoryClick(categoria.categoria)">
+            
+              {{ categoria.categoria }}
+            </button>
+              
+        </div>
+        <mat-divider *ngIf="selectedCategory"></mat-divider>
+        <!-- Submenú con las subcategorías -->
+        <div class="categorias-wrapper__subcategoria submenu" [class.active]="selectedCategory" *ngIf="selectedCategory">
+          
+          <ng-container *ngIf="currentSubcategories$ | async as subcategorias">
+            <button *ngFor="let subcategoria of subcategorias" 
+            class="subcategoria"
+            [class.active]="subcategoria === selectedSubcategory" 
+            (click)="onSubcategoryClick(subcategoria)">
+            
+              {{ subcategoria }}
+            </button>
+              
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+
+    <div class="catalog-grid" *ngIf="productosFiltrados$ | async as productos; else loading">
+      <app-producto-listing *ngFor="let producto of productos" 
+      [producto]="producto"
+      [showButtonsProduct]="'search'"
+      (buttonClick)="onButtonClick(producto)"
+      >
+      </app-producto-listing>
+    </div>
+
+    <ng-template #loading>
+      <div>Cargando productos...</div>
+    </ng-template>
+  </div>
+</div>  

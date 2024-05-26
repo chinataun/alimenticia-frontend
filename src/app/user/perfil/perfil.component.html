@@ -1,0 +1,87 @@
+<div class="left">
+  <div class="user-info" *ngIf="user$ | async as user">
+    <div class="user-image">
+      <img [src]="'http://localhost:3000/' + user.imagen" alt="Imagen del autor">
+      <h2>{{ user.nombre }} {{ user.apellidos }}</h2>
+    </div>
+    <div class="user-details">
+      Username:<span> {{ user.username }}</span>
+      <p>Supermercado favorito: <img height="25" alt="{{ user.supermercado }}" src="assets/logo-{{ user.supermercado }}.svg"></p>
+    </div>
+  </div>
+  <app-submenu *ngIf="user$ | async as user" [userId]="user.id"></app-submenu>
+  
+</div>
+<div class="right">
+<form [formGroup]="perfilForm">
+    <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label> Username </mat-label>
+        <input matInput type="text" placeholder="Username" formControlName="username">
+      </mat-form-field>
+        <app-form-error-container [forControl]="usernameControl">
+          <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          <app-form-error-msg forErrorCode="minLength"></app-form-error-msg>
+        </app-form-error-container>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Nombre</mat-label>
+        <input matInput type="text" placeholder="Nombre" formControlName="nombre">
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Apellidos</mat-label>
+        <input matInput type="text" placeholder="Apellidos" formControlName="apellidos">
+      </mat-form-field>
+    </div>
+
+    <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Correo electrónico</mat-label>
+        <input matInput type="email" placeholder="Correo electrónico" formControlName="email">
+      </mat-form-field>
+        <app-form-error-container [forControl]="emailControl">
+          <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          <app-form-error-msg forErrorCode="email"></app-form-error-msg>
+        </app-form-error-container>
+    </div>
+    <div class="form-element">
+      <mat-form-field subscriptSizing="dynamic">
+        <mat-label>Código postal</mat-label>
+        <input matInput type="number" placeholder="Correo electrónico" formControlName="cp">
+      </mat-form-field>
+        <app-form-error-container [forControl]="cpControl">
+          <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+        </app-form-error-container>
+    </div>
+
+    <div class="form-element image">
+      <label for="imagen">Imagen de perfil</label>    
+        <div class="form-element__image">
+          <img [src]="imagePreview" class="image-avatar-preview" alt="Image preview">
+          <input type="file" id="imagen" formControlName="imagen" (change)="onImageChange($event)">
+        </div>
+      
+    </div>
+    <app-form-error-container [forControl]="perfilForm">
+      <app-form-error-msg forErrorCode="invalidCredentials"></app-form-error-msg>
+    </app-form-error-container>
+
+    <div class="form-actions">
+      <button
+      mat-flat-button
+      (click)="onEdit()"
+      color="primary" 
+      type="submit" 
+      [disabled]="(perfilForm.statusChanges | async) !== 'VALID'"
+      >
+        Editar Perfil
+      </button>
+      <button mat-flat-button color="primary" (click)="openChangePasswordDialog()">Cambiar contraseña</button>
+    </div>
+  </form>
+</div>

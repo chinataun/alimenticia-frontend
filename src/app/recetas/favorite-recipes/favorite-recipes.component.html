@@ -1,0 +1,79 @@
+
+<div class="container">    
+
+<ng-container *ngIf="isLoggedInObservable$ | async">
+  <div class="submenu">
+    <div class="submenu-buttons">
+      <a mat-fab color="primary" extended routerLink="/profile/recetas-favoritas">
+        <mat-icon>favorite</mat-icon>
+        Mis recetas favoritas
+      </a>      
+      <a mat-fab color="primary" extended (click)="openNewRecipeDialog()">
+        <mat-icon>post_add</mat-icon>
+        Crear receta
+      </a>  
+      <a mat-fab color="primary" extended routerLink="/profile/mis-recetas">
+        <mat-icon>restaurant</mat-icon>
+        Mis recetas creadas
+      </a>
+    </div>
+</div>
+<mat-divider></mat-divider>
+<div class="categoria-wrapper" *ngIf="categorias">
+  <button class="categoria" [ngClass]="{'activo': 0 === categoriaSeleccionada}" (click)="onCategorySelect(0)">
+    Todas
+  </button>
+  <button *ngFor="let categoria of categorias" class="categoria" [ngClass]="{'activo': categoria.id === categoriaSeleccionada}" (click)="onCategorySelect(categoria.id)">
+    {{ categoria.nombre }}
+  </button>
+</div>
+</ng-container>
+<h2>Mis Recetas Favoritas</h2>
+  <div class="row">
+        <ng-container *ngIf="favorite_recipes$ | async as favoriteRecipes; else loading">
+          <ng-container *ngIf="favoriteRecipes.length > 0; else noFavorites">
+
+          <app-receta-card class="receta col-lg-4 col-md-4 col-sm-6 col-xs-12" 
+              *ngFor="let receta of filteredRecetas$ | async"
+              [receta]="receta"
+              [showButtons]="'favorite'"
+            ></app-receta-card>
+
+
+          </ng-container>
+        </ng-container>
+        <ng-template #loading>
+          <p>Cargando recetas favoritas...</p>
+        </ng-template>
+        <ng-template #noFavorites>
+          <p>No tienes recetas favoritas</p>
+        </ng-template>
+
+ 
+</div>
+</div>
+<!-- <div class="submenu">
+    <a mat-button routerLink="/profile/recetas-favoritas" routerLinkActive="active">Mis recetas favoritas</a>
+    <a mat-button routerLink="/profile/mis-recetas" routerLinkActive="active">Mis recetas creadas</a>
+    <a mat-button routerLink="/profile/mis-listas" routerLinkActive="active">Listas de comprar guardadas</a>
+</div>
+<div *ngIf="favorite_recetas$ | async as favoriteRecipes; else loading">
+  <ng-container *ngIf="favoriteRecipes.length > 0; else noFavorites">
+    <h2>Mis Recetas Favoritas</h2>
+    <div class="recetas-container">
+      <app-receta-item 
+        *ngFor="let receta of favorite_recetas$ | async" 
+        [recetaItem]="receta" 
+        [showButtons]="'favorite'"
+        (recetaItemToggleFavorite)="deleteFavorite(receta)"
+      ></app-receta-item>
+    </div>
+          
+  </ng-container>
+</div>
+<ng-template #loading>
+  <p>Cargando recetas favoritas...</p>
+</ng-template>
+<ng-template #noFavorites>
+  <p>No tienes recetas favoritas</p>
+</ng-template> -->

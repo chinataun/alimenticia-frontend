@@ -1,0 +1,94 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" routerLink="">
+    <img class="supermarket-logo" alt="supermarket logo" width="75px" height="75x" src="assets/alimenticia-trans.png">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/buscador">Comparador</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/recetas">Recetas</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="dieteticaDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dietética
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dieteticaDropdown">
+          <a class="dropdown-item" routerLink="/dietetica/informacion-nutricional">Información Nutricional</a>
+          <a class="dropdown-item" routerLink="/dietetica/calculadora">Calculadora de calorias</a>
+        </div>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" [routerLink]="formarURL()">Alimentos de Temporada</a>
+
+      </li> -->
+      <li>
+        <a class="nav-link" routerLink="/alimentos/temporada">Alimentos de temporada</a>
+      </li>
+    </ul>
+    <div class="user-row">
+
+
+      <div 
+        *ngIf="carritoService.cartItemCount$ | async" 
+        class="cart-icon"
+        (click)="carritoService.toggleCartVisibility()"
+        >
+        <div class="cart" >
+          <mat-icon matBadge="{{carritoCount$ | async }}" matBadgeOverlap="false">shopping_cart</mat-icon>
+          <!-- Include text description of the icon's meaning for screen-readers -->
+          <span class="cdk-visually-hidden">
+            <img src="/assets/shopping_cart.svg" style="background-color: red;" alt="Open Cart" />
+            <span>{{carritoCount$ | async }}</span>
+          </span>
+        </div>
+      </div>
+     
+      <!-- //Añadir dos opciones más si eciste userProfile$: AÑadiremos en un span su Codigo postal y la imagen del supermercado -->
+      <ng-container *ngIf="userProfile$ | async as userProfile">
+        <div class="super">
+          <img [src]="'assets/logo-' + userProfile.supermercado + '.svg'" alt="{{userProfile.supermercado}}" height="20" (click)="openSupermercadoModal()">
+          <button color="primary" class="cp" mat-raised-button (click)="openCPModal()">{{ userProfile.cp }}</button>
+        <!-- <span (click)="openCPModal()">{{ userProfile.cp }}</span> -->
+      </div>
+        <!-- <img [src]="userProfile.supermercado" alt="Supermercado" width="30" height="30"> -->
+      </ng-container>
+      
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <ng-container *ngIf="isLoggedInObservable$ | async">
+              <img *ngIf="user_picture$ | async as up" [src]="up" alt="User Picture" width="30" height="30" class="user-picture">
+            </ng-container>
+            
+
+            <ng-container *ngIf="!(isLoggedInObservable$ | async)">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+              class="bi bi-person link" viewBox="0 0 16 16">
+                <path
+                  d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z" />
+              </svg>
+            </ng-container>
+          </a>
+          <div class="dropdown-menu" aria-labelledby="userDropdown">
+            <ng-container *ngIf="!(isLoggedInObservable$ | async)">
+              <a class="dropdown-item" routerLink="/signin">Registro</a>
+              <a class="dropdown-item" routerLink="/login">Login</a>
+            </ng-container>
+            <ng-container *ngIf="isLoggedInObservable$ | async">
+              <a class="dropdown-item" routerLink="/user/profile">Perfil</a>
+              <a class="dropdown-item" (click)="openNewRecipeDialog()">Crear Receta</a>
+              <a class="dropdown-item" routerLink="/user/profile/carritos">Listas guardadas</a>
+              <a class="dropdown-item" (click)="logout(); false">Logout</a>
+            </ng-container>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
+  </div>
+</nav>

@@ -1,0 +1,132 @@
+@use '@angular/material' as mat;
+@use 'src/alimenticia-theme.scss' as app-theme;
+
+img {
+  width: 100%;
+position: relative;
+}
+
+.container {
+  margin: 24px auto;
+  .row {
+    justify-content: center;
+    margin: 0;
+    gap: 20px;
+    .meses-wrapper {
+      .mes {
+        // background-color: white;
+        color: black;
+        border: unset;
+        background: none;
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 10px;
+        &:hover,
+        &.activo,
+        &:focus {
+          background-color: mat.get-color-from-palette(app-theme.$app-primary, 500);
+          color: white;
+          outline: unset;
+        }
+      }
+
+    }
+    .categoria-wrapper{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      select.categoria {
+        color: black;
+        border: 1px solid #000;
+        background: white;
+        padding: 5px 10px;
+        margin: 5px;
+        cursor: pointer;
+        border-radius: 10px;
+        appearance: none;
+        &:hover,
+        &.activo,
+        &:focus {
+          outline: unset;
+        }
+      }
+      
+      select.categoria option:hover {
+        // background-color: #838a2a;
+        color: white;
+        cursor: pointer;
+      }
+      span {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+    }
+    .alimentos-wrapper {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 25px;
+  
+  
+      .alimentos-grid {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-around;
+        gap: 50px;
+        .alimento {
+          cursor: pointer;     
+          padding: 8px; 
+          transition: box-shadow 0.3s ease, opacity 0.3s ease; // Añade una transición suave al efecto de sombra y opacidad
+          .title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-direction: row;
+            mat-icon {
+              display: none;
+            }
+          }
+  
+          &.entrando {
+            opacity: 0.5;
+            .title {
+              h5 {
+                margin: 0;
+              }
+              mat-icon {
+                display: inline;
+              }
+          }
+          }
+          
+          &.noDisponible {
+            filter: grayscale(100%);
+            &:hover {
+              filter: unset;
+            }
+          }
+  
+          &:hover {
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); // Añade una sombra al hacer hover
+            opacity: 0.8; // Añade una pequeña opacidad al hacer hover
+          }
+          img {
+            max-width: 120px;
+            padding: 8px;
+            margin-bottom: 6px;
+          }
+          
+        }
+      }
+    }
+  }
+
+}

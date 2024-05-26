@@ -1,0 +1,41 @@
+<div class="dialog-wrapper" mat-dialog-content *ngIf="supermercados$ | async as supermercados">
+<!-- <div *ngIf="supermercados.length > 0"> -->
+  <div *ngIf="isLoggedInObservable$ | async">
+    <div class="dialog-header">
+      <h2>Selecciona tu supermercado favorito</h2>
+      <p>Es posible que en su código postal haya supermercados repetidos, hemos seleccionado el más valorado por los usuarios.</p>
+    </div>
+    <div class="dialog-supermercados">
+    
+      <div class="dialog-supermercados__super" *ngFor="let supermercado of supermercados$ | async">
+      
+          <div class="imagen-super" [ngClass]="{'not-choiced': supermercado.disabled}" (click)="seleccionarSupermercado(supermercado)">
+            <img [src]="'assets/logo-' + supermercado.name + '.svg'" alt="{{supermercado.name}}">
+          </div>
+          <div class="info-super" *ngIf="isLoggedInObservable$ | async">
+            {{supermercado.address}}
+          </div>
+        </div>
+
+    </div>
+
+  </div>
+  <div *ngIf="!(isLoggedInObservable$ | async)">
+    <div class="dialog-header">
+      <h2>Selecciona tu supermercado favorito</h2>
+      <p>Estos son nuestros supermercados disponibles. Registrate para más opciones</p>
+    </div>
+    <div class="dialog-supermercados">
+    
+      <div class="dialog-supermercados__super" *ngFor="let supermercado of supermercados$ | async">
+      
+          <div class="imagen-super" (click)="seleccionarSupermercadoDefault(supermercado.name)">
+            <img [src]="'assets/logo-' + supermercado.name + '.svg'" alt="{{supermercado.name}}">
+          </div>
+         
+        </div>
+
+    </div>
+  </div>
+  <!-- </div> -->
+</div>

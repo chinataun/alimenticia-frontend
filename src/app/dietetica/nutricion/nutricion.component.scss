@@ -1,0 +1,136 @@
+@use '@angular/material' as mat;
+@use 'src/alimenticia-theme.scss' as app-theme;
+
+:host {
+    &:has(.no-content) {
+      height: calc(100vh - 101px - 200px - 72px);
+      display: flex;
+    }
+    .container {
+        .row {
+            margin: 0;
+            justify-content: center;
+            .content {
+                display: flex;
+                flex-direction: column;
+                padding: 16px;
+                margin: 16px 0;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                width: 100%;
+                margin: 1rem 0;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                background-color: #fff;
+                .off{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    img {
+                      width: 100%;
+                      height: 32px;
+                    }
+                    span {
+                      font-size: small;
+                    }
+                    a {
+                        color: mat.get-color-from-palette(app-theme.$app-primary, 500);
+                        text-decoration: none;
+                        font-weight: bold;
+                    }
+                }
+                .search {
+                    form {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                }
+            }
+            .product-container {
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                width: 100%;
+                margin: 1rem 0;
+                border-radius: 10px;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                background-color: #fff;      
+                padding: 16px;
+                display: flex;
+                gap: 32px;
+                flex-direction: column;
+                .image-section {
+                    position: relative;
+                    padding: 0;
+                    text-align: center;
+                    margin-bottom: 2rem; 
+                    width: 225px;
+                    position: relative;
+                    text-align: center;
+                    img {
+                        -ms-interpolation-mode: bicubic;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+                mat-tab-group {
+                    flex-grow: 1;
+                    .product-info {
+                        width: 100%;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-between;
+                        gap: 12px;
+                        padding: 8px;
+                        span {
+                            p {
+                                margin: 0;
+                                font-weight: bold;
+                            }
+                        }
+                        .scores {
+                            display: flex;
+                            flex-direction: row;
+                            gap: 8px;
+                            justify-content: space-evenly;
+                            flex-wrap: wrap;
+                            img {
+                                height: 64px;
+                                margin-right: .2rem;
+                                margin-top: .2rem;
+                            }
+                        }
+                    }
+                    .product-info-nutricion {
+                        display: flex;
+                        flex-wrap: wrap;
+                        p {
+                            width: 48%;
+                            span {
+                                font-weight: bold;
+                            }
+                        }
+    
+                    }
+                }
+
+                
+            
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px){
+    :host {
+        .container {
+            .row {
+                .product-container {
+                    flex-direction: row;
+                } 
+            }
+        }
+    }
+}

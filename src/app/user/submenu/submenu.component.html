@@ -1,0 +1,22 @@
+<div class="submenu">
+    <!-- <ul>
+      <li><mat-icon style="color: red;">favorite</mat-icon><a routerLink="/profile/recetas-favoritas" routerLinkActive="active">Mis recetas creadas</a></li>
+      <li><mat-icon style="color: red;">restaurant</mat-icon><a routerLink="/profile/mis-recetas" routerLinkActive="active">Mis recetas creadas</a></li>
+      <li><mat-icon style="color: red;">list_alt</mat-icon><a routerLink="/profile/carritos" routerLinkActive="active">Listas de compras guardadas</a></li>
+    </ul> -->
+    <div class="submenu-buttons">
+      <a mat-fab color="primary" extended routerLink="/profile/recetas-favoritas">
+        <mat-icon>favorite</mat-icon>
+        Mis recetas favoritas
+      </a>      
+      <a mat-fab color="primary" extended routerLink="/profile/mis-recetas">
+        <mat-icon>restaurant</mat-icon>
+        Mis recetas creadas
+      </a>
+      <a mat-fab color="primary" extended routerLink="/profile/carritos">
+        <mat-icon>list_alt</mat-icon>
+        Listas de compras guardadas
+      </a>
+      <app-eliminar [userId]="userId"></app-eliminar>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+/* recetas-listing.component.scss */
+.receta-card {
+	display: flex;
+	flex-basis: calc(25% - 32px); // Para tener un mínimo de 4 tarjetas por fila
+	justify-content: center;
+	margin: 16px;
+	.mat-mdc-card-image.mdc-card__media {
+		width: 300px;
+		height: 200px;
+		object-fit: cover;
+	}
+  }
+  mat-card {
+	width: 100%;
+  }

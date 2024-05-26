@@ -1,0 +1,137 @@
+<!-- recetas-listing.component.html -->
+
+<ng-container *ngIf="receta.userId == userId || receta.status">
+<div class="receta-card">
+    <mat-card  [ngClass]="{'unpublish': !receta.status}">
+      <mat-card-header>
+        <div mat-card-avatar class="receta-header-image"   
+        [style.background-image]="'url(http://localhost:3000/' + receta.autor.imagen + ')'"
+        [style.background-size]="'cover'"
+        [style.background-repeat]="'no-repeat'"
+        [style.background-position]="'center'"></div>
+        <!-- <mat-card-title>{{ receta.titulo }}</mat-card-title> -->
+        <mat-card-title>
+          <a [routerLink]="['/recetas/receta', receta.id]">{{ receta.titulo }}</a>
+        </mat-card-title>
+        <!-- <mat-card-subtitle>{{ receta.autor.username }}</mat-card-subtitle> -->
+        <mat-card-subtitle>
+          
+          <div *ngIf="receta.categoriaReceta.nombre.toLowerCase() === category; else categoryLink">
+            {{ receta.categoriaReceta.nombre }}
+          </div>
+          <ng-template #categoryLink>
+            <p><a [routerLink]="['/recetas', 'categoria', receta.categoriaReceta.nombre.toLowerCase()]">{{ receta.categoriaReceta.nombre }}</a></p>
+
+          </ng-template>
+
+        </mat-card-subtitle>
+        <!-- <div class="categoria"> <img mat-card-image [src]="'assets/recetas/categorias/'+ receta.categoriaReceta.nombre.toLowerCase() +'.png'" class="image-dificultad" alt="{{ receta.dificultad }}">
+        </div> -->
+      </mat-card-header>
+
+      <mat-card-content>
+        <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-listing" alt="{{ receta.titulo }}">
+        <mat-card-subtitle></mat-card-subtitle>
+        <div class="atributos">
+          <div class="tiempo"><mat-icon>schedule</mat-icon><span>{{ receta.tiempo }} min</span></div>
+          <div class="dificultad"> 
+            <img mat-card-image [src]="'assets/recetas/dificultad/'+ receta.dificultad +'.png'" class="image-dificultad" alt="{{ receta.dificultad }}">
+            <span>{{ receta.dificultad }}</span>
+          </div>
+          <div class="comensales"><mat-icon>groups</mat-icon><span>{{ receta.comensales }} p.</span></div>
+        </div>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+        <!-- <button mat-icon-button (click)="toggleFavorite(receta)">
+          <mat-icon>{{ receta.isFavorite ? 'favorite' : 'favorite_border' }}</mat-icon>
+        </button> -->
+      <!-- <button mat-icon-button *ngIf="showButtons === 'all' || showButtons === 'favorite'" (click)="OnToggleFavorite()">
+        <mat-icon style="color: red;">favorite</mat-icon>
+      </button> -->
+      <ng-container *ngIf="isLoggedInObservable$ | async">        
+        <button  matTooltip="Dar o quitar favorito" mat-icon-button *ngIf="receta.userId !== userId else propia" (click)="OnToggleFavorite()">
+            <mat-icon *ngIf="isFavorite$ | async; else unfavorite" style="color: red;">favorite</mat-icon>
+            <ng-template #unfavorite><mat-icon matTooltip="Quitar favorito" style="color: red;">favorite_border</mat-icon></ng-template>
+        </button>
+      </ng-container>
+      <ng-template #propia>
+        <div matTooltip="No puedes dar favorito a tus propias recetas">
+          <button mat-icon-button color="warn" disabled matTooltip="No puedes sar favorito a tus propias recetas :D">
+            <mat-icon matTooltip="No puedes sar favorito a tus propias recetas :D">favorite</mat-icon>
+          </button>  
+        </div>
+      </ng-template>
+    <ng-container *ngIf="!(isLoggedInObservable$ | async)">
+      <div matTooltip="Registrate para tener recetas favoritas!">
+        <button mat-icon-button color="warn" disabled matTooltip="Debes estar logado para dar favoritos">
+          <mat-icon matTooltip="Debes estar logado para dar favoritos">favorite_border</mat-icon>
+        </button>    
+      </div>  
+    </ng-container>
+
+
+
+      <div class="rating" *ngIf="receta.rating as rating">
+        <!-- Estrellas completas -->
+        <mat-icon *ngFor="let star of range(floor(rating))" [color]="'accent'">star</mat-icon>
+        
+        <!-- Media estrella, si el rating tiene decimales -->
+        <mat-icon *ngIf="rating % 1 > 0" [color]="'accent'">star_half</mat-icon>
+        
+        <!-- Estrellas vacías -->
+        <mat-icon *ngFor="let star of range(5 - ceil(rating))" [color]="'accent'">star_border</mat-icon>
+      </div>
+      <!-- <div class="rating" *ngIf="!(rating$ | async)">
+          <mat-icon *ngFor="let star of [1, 2, 3, 4, 5]" [style.color]="star <= receta.rating ? 'gold' : 'gray'">star</mat-icon>
+      </div> -->
+
+      </mat-card-actions>
+    </mat-card>
+    
+    </div>
+</ng-container>
+
+  <!-- 
+  <div class="img-container" (click)="navigateToRecetaDetails()">
+      <img src="/assets/recetas/{{ receta.imagen }}" alt="{{ receta.titulo }}" />
+  </div>
+  <div class="info">
+    <a class="receta-titulo" (click)="navigateToRecetaDetails()"
+      ><strong>{{ receta.titulo }}</strong>
+    </a>
+    <span>{{ receta.descripcion }} </span>
+    <br>
+    <span>comensales: {{ receta.comensales }} </span><br>
+    <span>super: {{ receta.supermercado }} </span><br>
+    <span> comensales: {{ receta.comensales }} </span><br>
+    <span>tiempo: {{ receta.tiempo }} &euro;</span><br>
+    <span>categoria:{{ receta.idCategoria }} </span><br>
+    <span> idDificultad: {{ receta.idDificultad }} </span><br>
+    
+  
+  </div>
+  <mat-divider></mat-divider>
+  <button mat-icon-button (click)="OnDeleteFavorite()">
+    <mat-icon style="color: red;">favorite</mat-icon>
+  </button>
+      <!- <button mat-fab color="warn" (click)="toggleFavorite(receta?.id)">
+        <mat-icon>favorite</mat-icon>
+      </button> -->
+      <!-- <mat-divider></mat-divider> -->
+      <!-- <ng-container *ngIf="favorite$ | async">
+        <button mat-mini-fab color="accent" (click)="removeFavorite(receta?.id)">
+          <mat-icon color='warn'>favorite</mat-icon>
+        </button>
+      </ng-container>
+      <ng-container *ngIf="!(favorite$ | async)">
+        <button mat-mini-fab color="accent" (click)="addFavorite(receta?.id)">
+          <mat-icon color="warn">favorite_border</mat-icon>
+        </button>
+      </ng-container> -->
+        
+  
+  <!-- <button (click)="addToCart()" title="Añadir al Carrito">
+  <img src="/assets/add_white.svg" alt="+" />
+  </button> --> 
+  

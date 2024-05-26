@@ -1,0 +1,56 @@
+<div class="container">
+  <ng-container *ngIf="autor$ | async as autor">
+    <div class="user-info">
+      <div class="user-image">
+        <img [src]="'http://localhost:3000/' + autor.imagen" alt="Imagen del autor">
+      </div>
+      <div class="user-details">
+        <h2>{{ autor.nombre }} {{ autor.apellidos }}</h2>
+        <p>Apodo: {{ autor.apodo }}</p>
+        <p>Supermercado favorito: <img _ngcontent-ng-c2230171435="" width="30" height="30" alt="dia" src="assets/logo-{{ autor.supermercado }}.svg"></p>
+      </div>
+    </div>
+    <h2>Recetas creadas por {{ autor.username }}</h2>
+  <div class="row">
+    
+      <ng-container *ngIf="autor.creadas && autor.creadas.length > 0; else noRecetasCreadas">
+        
+
+
+
+        <app-receta-card class="receta col-lg-4 col-md-4 col-sm-6 col-xs-12" 
+        *ngFor="let receta of autor.creadas"
+            [receta]="receta"
+            [showButtons]="'all'"
+            [userId]="userId$ | async"
+          ></app-receta-card>
+        
+
+      </ng-container>
+      <ng-template #noRecetasCreadas>
+        <h2>{{ autor.username | titlecase }} no tiene recetas creadas</h2>
+      </ng-template>
+    </div>
+      <h2>Recetas favoritas de {{ autor.username }}</h2>
+      <div class="row">
+      <ng-container *ngIf="autor.favoritas && autor.favoritas.length > 0; else noRecetasFavoritas">
+        
+
+        
+
+        <app-receta-card class="receta col-lg-4 col-md-4 col-sm-6 col-xs-12" 
+        *ngFor="let receta of autor.favoritas"
+            [receta]="receta"
+            [showButtons]="'all'"
+            [userId]="userId$ | async"
+          ></app-receta-card>
+        
+
+      </ng-container>
+      <ng-template #noRecetasFavoritas>
+        <h1>{{ autor.username | titlecase }} no tiene recetas favoritas</h1>
+      </ng-template>
+    
+    </div>
+</ng-container>
+</div>

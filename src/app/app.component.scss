@@ -1,0 +1,26 @@
+:host {
+  display: flex;
+  flex-direction: column;
+}
+.banner-superior {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  height: 200px;
+}
+// .container.main-content {
+//   display: contents;
+// }
+// .back {
+//   background-repeat: no-repeat;
+//   background-size: cover;
+//   background-position: center;
+//   height: 1200px;
+// }
+@media (min-width: 768px) { 
+  // .container.main-content {
+  //   display: flex;
+  //   justify-content: center;
+  //   padding: 16px;
+  // }
+}

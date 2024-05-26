@@ -1,0 +1,34 @@
+form {
+  display: flex;
+  flex-direction: column;
+
+  .image-preview {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .form-element {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+  }
+
+  mat-hint {
+    font-size: small;
+  }
+
+  .actions {
+      button.create:active {
+      background-color: #5ec06f;
+      color: white;
+    }
+    // button.create:disabled {
+    //   color: #5ec06f;
+    //   background-color: white;
+
+    // }
+  }
+
+
+}
+

@@ -1,0 +1,48 @@
+<!-- <div class="banner-superior">
+  <img src="assets/banner/alimentosTemporada.png" alt="banner alimentos temporada" class="banner-img">
+</div> -->
+<div class="container">
+  <div class="row">
+  <div class="meses-wrapper">
+    <button *ngFor="let mes of meses" class="mes" [ngClass]="{'activo': mes === mesSeleccionado}" (click)="cambiarMesSeleccionado(mes)">
+      {{ mes }}
+    </button>
+  </div>
+  <div class="categoria-wrapper">
+    <span>
+      <mat-icon color="primary">sync_alt</mat-icon>Alimento entrando o saliendo de temporada<mat-icon color="primary">sync_alt</mat-icon>
+    </span>
+    <select id="categoria" class="categoria" (change)="cambiarCategoriaSeleccionada($event)">
+          <option value="all">Todas las categorias</option>
+          <option value="Frutas">Frutas</option>
+          <option value="Verduras">Verduras</option>
+          <!-- <option *ngFor="let categoria of categorias" [value]="categoria.nombre_categoria">{{ categoria.nombre_categoria }}</option> -->
+        </select>
+
+  </div>
+  <div class="alimentos-wrapper" *ngIf="alimentosFiltrados$ | async as alimentosFiltrados else loading">
+    <div class="alimentos-grid">
+      <!-- <div *ngFor="let alimento of alimentosFiltrados.active; trackBy: trackByFn" [@listAnimation] [class]="getEstadoAlimento(alimento)"> -->
+      <div *ngFor="let alimento of alimentosFiltrados.active" class="alimento" [class]="getEstadoAlimento(alimento)">
+        <img [src]="alimento.imagen" [alt]="alimento.nombre" (click)="onAlimentoClick(alimento)" />
+        <div class="title">
+          <mat-icon color="primary">sync_alt</mat-icon><h5>{{ alimento.nombre }}</h5><mat-icon color="primary">sync_alt</mat-icon>
+        </div>
+      </div>
+    </div>
+    <h2>Fuera de temporada</h2>
+    <div class="alimentos-grid">
+      <div *ngFor="let alimento of alimentosFiltrados.inactive" class="alimento" [class]="getEstadoAlimento(alimento)">
+        <img [src]="alimento.imagen" [alt]="alimento.nombre" (click)="onAlimentoClick(alimento)" />
+        <h5>{{ alimento.nombre }}</h5>
+      </div>
+    </div>
+  </div>
+  <ng-template #loading>
+    <div class="loading">     
+      <img src="assets/loading/icons8-carro.gif" alt="Loading...">
+    </div>
+  </ng-template>
+</div>
+
+</div>

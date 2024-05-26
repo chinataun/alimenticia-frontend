@@ -1,0 +1,13 @@
+<h1 mat-dialog-title>Introduce nuevo código postal</h1>
+
+<mat-dialog-content>
+  <mat-form-field>
+    <mat-label>Código Postal</mat-label>
+    <input matInput type="text" [value]="codigoPostal$ | async" (input)="updateCp($event)">
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button color="primary" (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onConfirm()">Guardar</button>
+</mat-dialog-actions>

@@ -1,0 +1,79 @@
+<div class="container">
+
+    <div class="row" style="margin-top: 48px;">
+
+      <div class="element">
+        <div class="right">
+          <h3 class="text-dark font-weight-bold">
+            ¿Te preguntas dónde conseguir los mejores precios para tu listas de la compra?
+          </h3>         
+          <hr class="hr-primary">
+          <p> Con Alimenticia, puedes comparar fácilmente los precios de los supermercados locales y ahorrar dinero en cada compra.</p>
+        </div>
+        <div class="">
+          <img src="./assets/home-imagen/haz-tu-compra.png" alt="" class="">
+        </div>
+      </div>
+
+      <div class="element">
+        <div class="right">
+          <img src="./assets/home-imagen/recetas.png" alt="" class="">
+        </div>
+        <div class="">
+          <h3 class="text-dark font-weight-bold">
+            ¿Te gusta cocinar?
+          </h3>         
+          <hr class="hr-primary">
+          <p>Descubre un mundo de sabores sin complicaciones con Alimenticia.</p>
+          <p>Aquí, las recetas van de la mano con una lista de compras sencilla y transparente.</p> 
+            <p>¿La mejor parte?</p>
+          <p> También te decimos cuánto podría costarte cada nueva receta.</p>
+        </div>
+
+      </div>
+
+      <div class="element">
+        <div class="right">
+          <h3 class="text-dark font-weight-bold">
+            ¿Te gusta la vida sana?
+          </h3>         
+          <hr class="hr-primary">
+          <p>Descubre una nueva forma de cuidar tu salud con Alimenticia.</p>
+          <p>Diseñada para simplificar tu camino hacia una vida más saludable, nuestra aplicación te permite calcular las calorías, explorar la información nutricional de alimentos y crear o consultar dietas con facilidad.</p>
+        </div>
+        <div class="">
+          <img src="./assets/home-imagen/vida-sana.png" alt="" class="">
+        </div>
+      </div>
+
+      <div class="element">
+        <div class="right">
+          <img src="./assets/home-imagen/alimentos-temporada.png" alt="" class="">
+        </div>
+        <div class="">
+          <h3 class="text-dark font-weight-bold">
+            La temporada en tu mesa
+          </h3>         
+          <hr class="hr-primary">
+          <p>Nuestra aplicación se convierte en tu compañera esencial para descubrir, aprender </p>
+          <p>y disfrutar de los productos frescos que cada estación tiene para ofrecer.</p>        
+        </div>
+
+      </div>  
+      <div class="supermercados__wrapper">
+        
+        <h2 class="text-dark font-weight-bold">Nuestros supermercados</h2>
+        <div class="supermercados__content">
+          
+          <div class="supermercados__super" *ngFor="let supermercado of supermercados">
+        
+            <div class="imagen-super">
+              <img [src]="'assets/logo-' + supermercado.name + '.svg'" alt="{{supermercado.name}}">
+            </div>
+          
+          </div>
+        </div>
+
+      </div>
+  </div>
+</div>

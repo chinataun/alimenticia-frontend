@@ -1,0 +1,51 @@
+<!-- <div class="contenedor-votacion">
+    <h2>Votar Receta</h2>
+    <div class="estrellas">
+      <span *ngFor="let i of [1, 2, 3, 4, 5]" (click)="seleccionarEstrella(i)" [class.seleccionada]="i <= puntuacion">
+        ★
+      </span>
+    </div>
+    <div class="comentario">
+      <label for="comentario">Comentario:</label>
+      <!- <input type="text" id="comentario" [(ngModel)]="comentario"> ->
+      <input type="text" id="comentario">
+    </div>
+    <div class="botones">
+      <!- <button class="btn btn-secondary" (click)="cancelar()">Cancelar</button> ->
+      <button class="btn btn-primary" (click)="votar()">Votar</button>
+    </div>
+  </div>
+   -->
+  <!-- <div class="contenedor-votacion">
+    <h2>Votar Receta</h2>
+    <div class="estrellas">
+      <span *ngFor="let star of stars; index as idx" (click)="selectStar(idx)" [class.seleccionada]="idx < rating">
+        ★
+      </span>
+    </div>
+    <div class="comentario">
+      <label for="comentario">Comentario:</label>
+      <input type="text" id="comentario" [(ngModel)]="comment">
+    </div>
+    <div class="botones">
+      <button class="btn btn-primary" (click)="submitVote()">Votar</button>
+    </div>
+  </div> -->
+  <div class="votacion-form-wrapper">
+    <h4>Vota esta receta y si quieres deja un comentario al autor!</h4>
+    <div class="stars">
+      <mat-icon *ngFor="let star of stars; index as idx" 
+                (click)="selectStar(idx)" 
+                [color]="idx < rating ? 'accent' : 'disabled'">
+        {{ idx < rating ? 'star' : 'star_border' }}
+      </mat-icon>
+    </div>
+    <!-- Formulario de votación -->
+    <form [formGroup]="voteForm" (ngSubmit)="submitVote()">
+      <mat-form-field>
+        <mat-label>Comentario</mat-label>
+        <textarea matInput formControlName="comment"></textarea>
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Enviar voto</button>
+    </form>
+  </div>

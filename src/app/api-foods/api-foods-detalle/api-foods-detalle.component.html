@@ -1,0 +1,59 @@
+<div *ngIf="productsDetalle">
+    <h2>{{ productsDetalle.title }}</h2>
+    <img [src]="productsDetalle.imageUrl" alt="Imagen del producto">
+    
+    <table>
+      <thead>
+        <tr>
+          <th>Nutriente</th>
+          <th>Valor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Hidratos de carbono</td>
+          <td>{{ productsDetalle.nutritionalInfo.carbohydrates }} {{ productsDetalle.nutritionalInfo.carbohydrates_unit }}</td>
+        </tr>
+        <tr>
+          <td>Energía</td>
+          <td>{{ productsDetalle.nutritionalInfo.energy }} {{ productsDetalle.nutritionalInfo.energy_unit }}</td>
+        </tr>
+        <tr>
+            <td>Grasas</td>
+            <td>{{ productsDetalle.nutritionalInfo.fat_100g }} {{ productsDetalle.nutritionalInfo.fat_unit }}</td>
+            
+                <!-- <td>Grasas Saturadas</td>
+                <td>{{ productsDetalle.nutritionalInfo.saturated-fat_100g}} {{ productsDetalle.nutritionalInfo.saturated-fat_unit }}</td>
+               -->
+        </tr>
+      
+          <tr>
+            <td>Hidratos de carbono</td>
+            <td>{{ productsDetalle.nutritionalInfo.energy }} {{ productsDetalle.nutritionalInfo.energy_unit }}</td>
+          </tr>
+          <tr>
+            <td>Azúcares</td>
+            <td>{{ productsDetalle.nutritionalInfo.sugars_100g }} {{ productsDetalle.nutritionalInfo.sugars_unit }}</td>
+          </tr>
+          <tr>
+            <td>Fibra</td>
+            <ng-container *ngIf="productsDetalle.nutritionalInfo.fiber_100g !== undefined">
+                {{ productsDetalle.nutritionalInfo.fiber_100g }} {{ productsDetalle.nutritionalInfo.fiber_unit }}
+              </ng-container>
+              <ng-container *ngIf="productsDetalle.nutritionalInfo.fiber_100g === undefined">
+                No disponible
+              </ng-container>
+          </tr>
+          <tr>
+            <td>Proteínas</td>
+            <td>{{ productsDetalle.nutritionalInfo.proteins_100g}} {{ productsDetalle.nutritionalInfo.proteins_unit }}</td>
+          </tr>
+          <tr>
+            <td>Sal</td>
+            <td>{{ productsDetalle.nutritionalInfo.salt_100g }} {{ productsDetalle.nutritionalInfo.salt_unit }}</td>
+          </tr>
+        <!-- Agrega más filas para otros nutrientes aquí -->
+      </tbody>
+    </table>
+  </div>
+  

@@ -1,0 +1,192 @@
+<div class="container">
+  <div class="row">    
+  <form [formGroup]="recetaForm" (ngSubmit)="onUpdate()" ngNativeValidate>
+    <div class="receta-detail__wrapper" *ngIf="recetaForm">
+
+      <div class="receta-detail">
+        <mat-slide-toggle formControlName="status"></mat-slide-toggle>
+        <div class="receta-detail__actions">
+          <button mat-raised-button color="primary" type="submit" [disabled]="(recetaForm.statusChanges | async) !== 'VALID'">Guardar receta</button>
+          <!-- <button mat-raised-button color="primary" type="submit" [disabled]="!recetaForm.valid">Guardar receta</button> -->
+  
+          
+          <app-form-error-container [forControl]="recetaForm">
+            <app-form-error-msg forErrorCode="emptyRecipeDontPublish"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <!-- <p *ngIf="!recetaForm.valid">Para publicar la receta debe tener ingredientes y pasos</p> -->
+        <!-- <p>Form Group Status: {{recetaForm.status}}</p> -->
+
+        <div class="receta-wrapper receta-detail__content">
+          <div class="receta-wrapper__image receta-detail-content__image" *ngIf="receta">
+            <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" >
+          </div>
+          <div class="receta-wrapper__content receta-detail-content__fields">
+            <div class="form-element">
+            <mat-form-field subscriptSizing="dynamic">
+              <mat-label> Titulo </mat-label>
+              <input matInput placeholder="Título" formControlName="titulo">
+            </mat-form-field>
+            <app-form-error-container [forControl]="tituloControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              <app-form-error-msg forErrorCode="minlength" customMsg="El título debe tener al menos 3 caracteres"></app-form-error-msg>
+            </app-form-error-container>
+          </div>
+            <div class="form-element">
+              <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Categoría</mat-label>
+                <mat-select name="categoria" formControlName="categoriaId">
+                  <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <app-form-error-container [forControl]="categoriaIdControl">
+                  <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              </app-form-error-container>
+            </div>
+            <div class="form-element">
+                <mat-form-field subscriptSizing="dynamic">
+                  <mat-label> Dificultad </mat-label>
+                  <mat-select name="dificultad" formControlName="dificultad">
+                    <mat-option *ngFor="let dificultad of dificultades" [value]="dificultad.nombre | removeAccents | lowercase">{{dificultad.nombre}}</mat-option>
+        
+                  </mat-select>
+                </mat-form-field>
+                <app-form-error-container [forControl]="dificultadControl">
+                    <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+                </app-form-error-container>
+
+            </div>
+            <div class="form-element">
+              <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Comensales</mat-label>
+                <input matInput formControlName="comensales">
+              </mat-form-field>
+              <app-form-error-container [forControl]="comensalesControl">
+                  <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              </app-form-error-container>
+            </div>
+            <div class="form-element">
+              <mat-form-field subscriptSizing="dynamic">
+                <mat-label>Tiempo de preparación</mat-label>
+                <input matInput formControlName="tiempo">
+              </mat-form-field>
+              <mat-hint>Introduce el tiempo en minutos</mat-hint>
+              <app-form-error-container [forControl]="tiempoControl">
+                  <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              </app-form-error-container>
+            </div>
+          </div>
+        <!-- <img mat-card-image [src]="'http://localhost:3000/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
+        <p>{{ receta.descripcion }}</p>
+
+        <ul *ngIf="receta.ingredientes">
+          <li *ngFor="let ingrediente of receta.ingredientes">
+            {{ ingrediente.ingrediente }} | {{ ingrediente.cantidad }}
+          </li>
+        </ul>
+        <ul>
+          <li *ngFor="let paso of receta.pasos">
+            <p>{{ paso.paso }}</p>
+          </li>
+        </ul> -->
+
+      
+        </div>
+      </div>
+    </div>
+    <div class="receta-detail__wrapper" *ngIf="recetaForm">
+      <div class="receta-ingredientes">
+        <div formArrayName="ingredientes">
+          <div *ngFor="let ingrediente of ingredientes.controls; let i = index" [formGroupName]="i" class="ingrediente-linea">
+            <div class="ingrediente-content">
+              <img [src]="ingrediente.get('imagen')?.value" class="producto-imagen">
+              <div class="producto-content">
+                <span class="producto-content__title">{{ ingrediente.get('nombre')?.value }}</span>            
+                <span class="producto-content__precio"><span>Precio:</span> {{ ingrediente.get('precio')?.value }} €</span>
+              </div>
+            </div>
+            <div class="ingrediente-actions">
+              <mat-form-field subscriptSizing="dynamic" class="example-full-width">
+                <!-- <input matInput placeholder="Cantidad" formControlName="cantidad"> -->
+                <mat-label>Cantidad</mat-label>
+                <input matInput formControlName="cantidad">
+              </mat-form-field>
+  
+              <!-- <button mat-button (click)="removeIngredient(i)">Eliminar</button> -->
+              <button mat-icon-button (click)="removeIngredient(i)"  title="Eliminar ingrediente">       
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="search">
+          <!-- <label for="termino">Buscar Productos:</label> -->
+          <!-- <input type="text" id="termino" [(ngModel)]="termino" placeholder="Buscar productos..."/> -->
+          <form (submit)="onSubmit($event)">
+            <input type="text" id="termino" name="termino" [(ngModel)]="termino" placeholder="Buscar productos...">
+            <button mat-flat-button color="primary" type="submit">Buscar</button>
+          </form>
+          <ng-container *ngIf="productos$ | async as productos">
+            <button mat-flat-button *ngIf="productos.length > 0"color="primary" type="button" (click)="reset()">Resetear productos</button>
+          </ng-container>
+        </div>
+
+        <div class="catalog-grid" *ngIf="productos$ | async as productos">
+          <app-producto-listing *ngFor="let producto of productos" 
+          [producto]="producto"
+          [showButtonsProduct]="'edit'"
+          (click)="addIngredient(producto)">
+        </app-producto-listing>
+        </div>
+      </div>
+    </div>
+    <div class="receta-detail__wrapper" *ngIf="recetaForm" formArrayName="pasos">
+      <div *ngFor="let paso of pasos.controls; let i = index" [formGroupName]="i" class="receta__pasos">
+        <div class="receta-pasos__content">
+          <div class="receta-pasos__paso">
+
+              <mat-form-field subscriptSizing="dynamic" class="paso">
+                <!-- <input matInput placeholder="Cantidad" formControlName="cantidad"> -->
+                <mat-label>Paso</mat-label>
+                <textarea matInput formControlName="paso">Paso</textarea>
+              </mat-form-field>
+              <app-form-error-container [forControl]="paso">
+                <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+              </app-form-error-container>
+      
+
+
+          </div>          
+          <div class="receta-pasos__image" *ngIf="receta.pasos">
+            <ng-container *ngIf="imagenPreviews[i] as preview; else existingImage">
+              <img mat-card-image [src]="preview">
+            </ng-container>
+          
+            <ng-template #existingImage>
+              <ng-container *ngIf="receta.pasos[i]?.imagen as existing; else noImage">
+                <img mat-card-image [src]="'http://localhost:3000' + existing" alt="Imagen actual de la receta">
+              </ng-container>
+            </ng-template>
+          
+            <ng-template #noImage>
+              <p>Sin imagen</p>
+            </ng-template>
+
+          </div>
+          <div class="receta-pasos__actions">
+            <button mat-icon-button (click)="removePaso(i)"  title="Eliminar paso">       
+              <mat-icon>delete</mat-icon>
+            </button>
+            <input type="file" #imageInput (change)="onFileChange($event, i)">
+            <button mat-icon-button *ngIf="paso.get('imagen')?.value" (click)="removeImagePaso(i)" title="Eliminar imagen"><mat-icon>hide_image</mat-icon></button>
+          </div>
+        </div>
+      </div>
+      <button mat-flat-button color="primary" type="button" (click)="addPaso()" class="add-paso">Agregar paso</button>
+    </div>
+  </form>
+</div>
+</div>

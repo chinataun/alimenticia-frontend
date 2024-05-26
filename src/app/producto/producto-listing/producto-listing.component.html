@@ -1,0 +1,80 @@
+
+
+    <mat-card>
+      <mat-card-header>
+        <mat-card-subtitle>    
+          {{producto.categoriaSuper2}}
+        </mat-card-subtitle>
+        <button class="addItem" (click)="onButtonClick(producto)" title="Añadir al Carrito" *ngIf="showButtonsProduct === 'search'">
+          <img src="/assets/add_white.svg" alt="+" />
+        </button>
+        <button class="addIngredient" (click)="onButtonClick(producto)" title="Añadir ingrediente" *ngIf="showButtonsProduct === 'edit'">
+          <img src="/assets/add_white.svg" alt="+" />
+        </button>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image class="image-listing" src="{{ producto.imagen }}" alt="{{ producto.name }}" />
+        <mat-card-title>
+          {{ producto.nombre}}
+        </mat-card-title>
+        <span class="price"><span class="price">Precio:</span>{{ producto.precioNormal | number: "1.2-2" }} &euro;</span>
+      </mat-card-content>
+      <mat-divider></mat-divider>
+      <mat-card-actions>
+    <button (click)="buscarProductoSimilar(producto, $event)"  *ngIf="showButtonsProduct === 'search'">Buscar producto similar</button>
+    <br>
+    <div class="similar" *ngFor="let item of productos">
+      <img _ngcontent-ng-c2230171435="" width="30" height="30" alt="dia" src="assets/logo-{{ item.key }}.svg">
+      <div *ngIf="item.value.productoMarcaSimilar; else noMarcaBlock">
+        <p>{{ item.value.productoMarcaSimilar.nombre }}</p>
+        <p class="oferta" *ngIf="item.value.productoMarcaSimilar.precioOferta != 0.00; else precio"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoMarcaSimilar.precioOferta }} &euro;</span></p>
+        <ng-template #precio>
+          <p class="oferta" *ngIf="item.value.productoMarcaSimilar.precioOferta == -1.00; else precioA"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoMarcaSimilar.precioNormal }} &euro;</span></p>
+        </ng-template>
+        <ng-template #precioA>
+          <p><span class="price">Precio:</span>{{ item.value.productoMarcaSimilar.precioNormal }} &euro;</p>
+        </ng-template>
+      </div>
+    
+      <ng-template #noMarcaBlock>
+        <div *ngIf="item.value.productoSimilar; else noCoincidenciasBlock">
+          <p>{{ item.value.productoSimilar.nombre }}</p>
+          <p *ngIf="item.value.productoSimilar.precioOferta != '0.00'; else precioM"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoSimilar.precioOferta }} &euro;</span></p>
+          <ng-template #precioM>
+            <p class="oferta" *ngIf="item.value.productoSimilar.precioOferta == '-1.00'; else precioMA"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoSimilar.precioNormal }} &euro;</span></p>
+          </ng-template>
+          <ng-template #precioMA>
+            <p><span class="price">Precio:</span>{{ item.value.productoSimilar.precioNormal }} &euro;</p>
+          </ng-template>
+        </div>
+      </ng-template>
+      
+      <ng-template #noCoincidenciasBlock>
+        <div>
+          <!-- Mostrar mensaje de no hay coincidencias -->
+          No hay coincidencias
+        </div>
+      </ng-template>
+    </div>
+
+   
+  <!-- </div> -->
+    <!-- <ng-container *ngIf="!(isLoggedInObservable$ | async)">
+      <button mat-icon-button color="warn" disabled matTooltip="Debes estar logado para dar favoritos">
+        <mat-icon >favorite_border</mat-icon>
+    </button>
+     
+    </ng-container> -->
+      <!-- // Quiero un boton para editar la receta -->
+      <!-- <button mat-icon-button *ngIf="showButtons === 'editDelete'" (click)="OnEditReceta()">
+        <mat-icon style="color: blue;">edit</mat-icon>
+      </button> -->
+      <!-- // Quiero otro boton con el mat icon de elimnar para eliminar la receta -->
+      <!-- <button mat-icon-button *ngIf="showButtons === 'editDelete'" (click)="OnDeleteReceta()">
+        <mat-icon>delete</mat-icon>
+      </button> -->
+
+  
+      </mat-card-actions>
+    </mat-card>
+    

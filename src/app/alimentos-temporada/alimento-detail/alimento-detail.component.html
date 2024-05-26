@@ -1,0 +1,131 @@
+    <div class="container">
+        <div class="row">
+
+
+    <div class="alimento-detail__wrapper" *ngIf="alimento$ | async as alimento">
+        <div class="alimento-detail__alimento alimento-detail" >
+
+            <!-- <img class="banner" [src]="alimento.imagen_banner" [alt]="alimento.nombre"> -->
+            <div class="content">
+    
+                <h1 class="nombre">{{ alimento.nombre }}</h1>
+                <div class="nutricion">
+                    <div class="nutriente">
+                        <img src="assets/calorias.png" alt="">
+                        <span>Calorías: {{ alimento.calorias }}</span>
+                    </div>
+                    <div class="nutriente">
+                        
+                        <img src="assets/proteinas.png" alt="">
+                        <span>Proteínas: {{ alimento.proteinas }}</span>
+                    </div>
+                    <div class="nutriente">
+                        
+                        <img src="assets/grasas.png" alt="">
+                        <span>Grasas: {{ alimento.grasas }}</span>
+                    </div>
+                    <!-- <div ngFor="let nutriente of alimento.nutrientes" class="nutriente">
+                        <span>{{ nutriente.nombre }}: {{ nutriente.valor }}</span>
+                    </div> -->
+                </div>
+                <p class="descripcion">{{ alimento.descripcion }}</p>
+                
+                <div class="meses-wrapper">
+                    <div class="meses-content">
+                        <div *ngFor="let mes of meses" class="mes" [class]="getMesClass(mes, alimento)">
+                            {{ mes }}
+                        </div>
+                    </div>
+                    <div class="leyenda">
+                        <div class="leyenda-item">
+                            <div class="leyenda-color enTemporada"></div>
+                            <div class="leyenda-texto">En temporada</div>
+                        </div>
+                        <div class="leyenda-item">
+                            <div class="leyenda-color entrando"></div>
+                            <div class="leyenda-texto">Entrando o saliendo de temporada</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="volver">
+                <button (click)="volver()">Volver</button>
+            </div> -->
+        </div>
+    </div>
+
+    <div class="alimento-detail__wrapper">
+        <div class="alimento-detail__caracteristicas alimento-caracteristicas" *ngIf="alimento$ | async as alimento">
+            
+            <mat-tab-group>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <img [src]="'assets/beneficios.png'" alt="beneficios">
+                        <span>Beneficios</span>
+                    </ng-template>
+                    <div class="alimento-caracteristicas__content">
+                        <ul *ngFor="let beneficio of alimento.beneficio" class="beneficio">
+                            <li>{{ beneficio.beneficio }}</li>
+                        </ul>         
+                    </div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <img [src]="'assets/almacenaje.png'" alt="almacenaje">
+                        <span>Almacenaje</span>
+                    </ng-template>
+                    <div class="alimento-caracteristicas__content">
+                        <ul *ngFor="let almacenaje of alimento.almacenaje" class="almacenaje">
+                            <li><span>{{ almacenaje.metodo }}</span> | <span>{{ almacenaje.duracion }}</span></li>
+                        </ul>
+                    </div>
+                </mat-tab>
+                <mat-tab>
+                    <ng-template mat-tab-label>
+                        <img [src]="'assets/seleccion.png'" alt="seleccion">
+                        <span>Selección</span>
+                    </ng-template>
+                    <div class="alimento-caracteristicas__content">
+                        <ul *ngFor="let seleccion of alimento.seleccion" class="seleccion">
+                            <li><span>{{ seleccion.seleccion }}</span> 
+                        </ul>
+                    </div>
+                </mat-tab>
+            </mat-tab-group>
+        </div>
+    </div>
+<div class="alimento-detail__wrapper">
+    <div class="alimento-detail__supermercados alimento-supermercados" *ngIf="productos$ | async as productos">
+        <mat-tab-group>
+            <mat-tab *ngFor="let supermercado of supermercados">
+                <ng-template mat-tab-label>
+                    <img height="30" [src]="'assets/logo-' + supermercado + '.svg'" alt="supermercado">
+                    
+                  </ng-template>
+                <div class="alimento-supermercados__producto" *ngFor="let producto of productos[supermercado]">
+    
+
+                    <img
+                    src="{{ producto.imagen }}"
+                    alt="{{ producto.nombre }}"
+                    class="thumbnail"
+                    />
+                    <div class="info">
+                        <span>{{ producto.nombre }}</span>
+                        <span class="info-price">{{ producto.precioNormal }} €</span>
+                    </div>
+
+                </div>
+            </mat-tab>
+
+  
+        </mat-tab-group>
+    </div>
+    <ng-template #loading>
+        <div class="loading">     
+          <img src="assets/loading/icons8-carro.gif" alt="Loading...">
+        </div>
+      </ng-template>
+
+    </div>
+</div></div>
