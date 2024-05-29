@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { Input } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDialogComponent } from 'src/app/componenets/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/componentes/confirm-dialog/confirm-dialog.component';
 import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({

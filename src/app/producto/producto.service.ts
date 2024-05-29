@@ -2,10 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, catchError, map, of, tap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { AuthService } from '../service/authService.service';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from '../user/user.service';
 import { Producto } from './producto.categoria.interface';
+import { AuthService } from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'

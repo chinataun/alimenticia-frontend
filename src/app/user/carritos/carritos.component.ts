@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/
 import { UserService } from '../user.service';
 import * as jspdf from 'jspdf';
 import html2canvas from 'html2canvas';
-import { ConfirmDialogComponent } from 'src/app/componenets/confirm-dialog/confirm-dialog.component';
+import { ConfirmDialogComponent } from 'src/app/componentes/confirm-dialog/confirm-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'app-carritos',

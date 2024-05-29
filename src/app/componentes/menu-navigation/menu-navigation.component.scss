@@ -1,7 +1,28 @@
+:host {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  overflow: auto;
+  nav {
+    height: auto;
+    position: sticky;
+    .cart-icon {
+      cursor: pointer;
+      margin-right: 24px;
+      .cart {
+        display: none;
+      }
+      .cart-mobile {
+        display: block;
+      }
+    }
+  }
 
 
+}
 
 @media (min-width: 992px) {
+  
 	.navbar-expand-lg {
 		.navbar-collapse {
 			justify-content: space-between;
@@ -24,6 +45,9 @@
     .cart-icon {
       cursor: pointer;
       margin-right: 24px;
+      .cart {
+        display: block;
+      }
     }
     .super {
       font-size: 1rem;
@@ -49,3 +73,21 @@
 
 
 
+
+
+
+@media screen and (min-width: 512px){
+  :host {
+    position: relative;
+    .cart-icon {
+      .cart {
+        display: block;
+      }
+      .cart-mobile {
+        display: none
+      }
+    }
+  
+  }
+
+}

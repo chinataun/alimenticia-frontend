@@ -1,10 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { FormsModule, FormBuilder, FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
+import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
 import { Usuario } from 'src/app/interface/interface.component';
-import { UsuariosService } from '../../service/usuariosRegistro.service';
 import { AuthService } from '../auth.service';
 import { SigninCredentials } from '../login-credentials';
-import { UserService } from 'src/app/user/user.service';
 
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';

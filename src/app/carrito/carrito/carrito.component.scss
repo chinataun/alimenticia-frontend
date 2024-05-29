@@ -7,23 +7,26 @@
     overflow-y: auto;
     z-index: 999;
     position: fixed;
-    top: 150px;
-    height: 60vh;
+    height: 30vh;
     /* top: 20px; */
-    right: -100%;
+    bottom: -100%;
     z-index: 1000;
+    border-bottom: 0;
+    width: 100%;
+
+    transition: bottom 1s ease-out; // Agrega esta línea para animar el cambio de posición
+   
     border: 2px solid mat.get-color-from-palette(app-theme.$app-primary, 500);
-    border-right: 0;
+
     padding: 16px;
-    width: 35%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     transition: right 1s ease-out; // Agrega esta línea para animar el cambio de posición
    
     &.open {
-      right: 0; // Cuando el carrito está abierto, se desliza desde la derecha
-    }
+      bottom: 0; // Cuando el carrito está abierto, se desliza desde la derecha
+    }  
     .cart {
       display: flex;
       flex-direction: column;
@@ -66,9 +69,41 @@
         cursor: not-allowed;
       }
     }
+}
+  
+  @media screen and (min-width: 512px){
+    :host {
+      .cart-container {
+
+
+ 
+        background-color: #fff;
+        overflow-y: auto;
+        z-index: 999;
+        position: fixed;
+        top: 150px;
+        height: 60vh;
+        /* top: 20px; */
+        right: -100%;
+        z-index: 1000;
+        border: 2px solid mat.get-color-from-palette(app-theme.$app-primary, 500);
+        border-right: 0;
+        padding: 16px;
+        width: 35%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        transition: right 1s ease-out; // Agrega esta línea para animar el cambio de posición
+       
+        &.open {
+          right: 0; // Cuando el carrito está abierto, se desliza desde la derecha
+        }
+        
+    }
+    
+    }
+  
   }
-  
-  
  
   
 

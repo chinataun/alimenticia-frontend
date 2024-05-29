@@ -12,6 +12,7 @@ export class AppComponent implements OnInit {
   bannerImage!: string;
   isCartVisible = false;
   isMenuOpened = false;
+  carritoCount$ = this.carritoService.carritoCount$;
 
   constructor(private appService: AppService, public carritoService: CarritoService) {
     this.appService.changeBannerImage('assets/banner/comparador.jpg');

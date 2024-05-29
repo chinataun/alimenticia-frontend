@@ -1,7 +1,23 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-light bg-light sticky-menu">
   <a class="navbar-brand" routerLink="">
-    <img class="supermarket-logo" alt="supermarket logo" width="75px" height="75x" src="assets/alimenticia-trans.png">
+    <img class="alimenticia-logo" alt="supermarket logo" width="75" height="75" src="assets/alimenticia-trans.png">
   </a>
+  <div 
+  *ngIf="carritoService.cartItemCount$ | async" 
+  class="cart-icon"
+  (click)="carritoService.toggleCartVisibility()"
+  >
+  <div class="cart-mobile">
+    <mat-icon matBadge="{{carritoCount$ | async }}" matBadgeOverlap="false">shopping_cart</mat-icon>
+    <!-- Include text description of the icon's meaning for screen-readers -->
+    <span class="cdk-visually-hidden">
+      <img src="/assets/shopping_cart.svg" style="background-color: red;" alt="Open Cart" />
+      <span>{{carritoCount$ | async }}</span>
+    </span>
+  </div>
+  </div>
+
+
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -38,7 +54,7 @@
         class="cart-icon"
         (click)="carritoService.toggleCartVisibility()"
         >
-        <div class="cart" >
+        <div class="cart">
           <mat-icon matBadge="{{carritoCount$ | async }}" matBadgeOverlap="false">shopping_cart</mat-icon>
           <!-- Include text description of the icon's meaning for screen-readers -->
           <span class="cdk-visually-hidden">
@@ -46,6 +62,7 @@
             <span>{{carritoCount$ | async }}</span>
           </span>
         </div>
+
       </div>
      
       <!-- //Añadir dos opciones más si eciste userProfile$: AÑadiremos en un span su Codigo postal y la imagen del supermercado -->

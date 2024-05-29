@@ -27,9 +27,9 @@ export class LoginComponent {
   constructor(private authService: AuthService, private toastr: ToastrService) {}
 
   logIn(): void {
-    const email = this.loginForm.value.email || ''; // Asegúrate de manejar el caso en que email sea null o undefined
-    const password = this.loginForm.value.password || ''; // Asegúrate de manejar el caso en que password sea null o undefined
-    const credentials: LoginCredentials = { email, password }; // Crea un objeto de tipo LoginCredentials con las propiedades email y password
+    const email = this.loginForm.value.email || ''; 
+    const password = this.loginForm.value.password || ''; 
+    const credentials: LoginCredentials = { email, password };
     this.loginForm.markAsPending();
     this.authService.logIn(credentials).subscribe();
   }
