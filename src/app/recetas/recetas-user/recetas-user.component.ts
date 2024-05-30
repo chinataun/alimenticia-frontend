@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Autor } from 'src/app/user/user.interface';
 import { AppService } from 'src/app/app.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-recetas-user',
@@ -22,7 +23,7 @@ export class RecetasUserComponent {
     .pipe(
       map((user: User | null) => user?.userId)
     );
-    
+    baseUrl = environment.API_BASE_URL;
   constructor(
     private authService: AuthService,
     private recetasService: RecetasService,

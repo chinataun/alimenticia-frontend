@@ -10,6 +10,7 @@ import { Receta } from '../receta';
 import { CategoriaService } from 'src/app/service/categoriasService';
 import { ToastrService } from 'ngx-toastr';
 import { emptyRecipeDontPublish } from 'src/app/form-extensions/validators/empty-recipe-dont-publish';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-edit-receta-complete',
@@ -19,6 +20,7 @@ import { emptyRecipeDontPublish } from 'src/app/form-extensions/validators/empty
   encapsulation: ViewEncapsulation.None
 })
 export class EditRecetaCompleteComponent {
+  baseUrl = environment.API_BASE_URL;
   receta!: Receta
   categorias: any[] | undefined;
   supermercados: any[] = this.categoriaService.getSupermercadosActivos();
@@ -31,6 +33,8 @@ export class EditRecetaCompleteComponent {
   private recetaSubscription!: Subscription;
 
   imagenPreviews: string[] = [];
+  imagenDetailPreview: string = '';
+  imageFile: File | null = null;
 
   private productosSubject = new BehaviorSubject<Producto[]>([]);
   productos$ = this.productosSubject.asObservable();
@@ -170,25 +174,20 @@ export class EditRecetaCompleteComponent {
   }
   addPaso() {
     this.pasos.push(this.crearPaso());
-    console.log(this.pasos);
   }
 
   removePaso(index: number) {
     this.pasos.removeAt(index);
   }
   removeImagePaso(index: number) {
-    console.log(index)
-    // Elimina la imagen del formulario
     this.pasos.at(index).patchValue({
       imagen: ''
     });
     this.receta.pasos[index].imagen = '';
-    console.log(this.pasos.at(index));
-    // Elimina la vista previa de la imagen
     this.imagenPreviews[index] = '';
     this.imageInput.nativeElement.value = null;
 
-    this.cd.detectChanges(); // Detecta los cambios
+    this.cd.detectChanges();
 
   }
 
@@ -214,28 +213,28 @@ export class EditRecetaCompleteComponent {
       reader.readAsDataURL(file);
     }
   }
-  // onFileChange(event: any, index: number) {
-  //   if (event.target.files && event.target.files.length) {
-  //     const element = event.target as HTMLInputElement;
-  //     const file = element.files?.[0];
-  //     if (!file) {
-  //       return;
-  //     }
-
-  //     const reader = new FileReader();
-  //     reader.onload = () => {
-
-  //       this.pasos.at(index).patchValue({
-  //         imagen: reader.result as string,
-  //         paso: this.pasos.at(index).value.paso  // Guarda el paso en el formulario
+  onFileDetailChange(event: any) {
+    if (event.target.files && event.target.files.length) {
+      const element = event.target as HTMLInputElement;
+      const file = element.files?.[0];
+      if (!file) {
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imagenDetailPreview = reader.result as string; 
+        this.imageFile = file;
+        // Aquí puedes guardar la imagen principal en el formulario, similar a como lo haces en onFileChange
+        // this.form.patchValue({
+        //   imagenPrincipal: file,
+        // });
   
-  //       });
-  //       this.cd.detectChanges(); // Detecta los cambios
-  //       console.log(this.pasos.at(index).value.imagen);
-  //     };
-  //     reader.readAsDataURL(file);
-  //   }
-  // }
+        this.cd.detectChanges(); // Detecta los cambios
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
   isDataUrl(url: string): boolean {
     return /^data:image\/[a-zA-Z]*;base64,/.test(url);
   }
@@ -268,24 +267,22 @@ export class EditRecetaCompleteComponent {
     formData.append('categoriaId', this.recetaForm.value.categoriaId ?? '');
     formData.append('dificultad', this.recetaForm.value.dificultad ?? '');
     formData.append('status', this.recetaForm.value.status ?? false);
-
+    if (this.imageFile) {        
+      formData.append('imagenPrincipal', this.imageFile!);
+    } 
     formData.append('ingredientes', JSON.stringify(this.recetaForm.value.ingredientes));
 
     this.recetaForm.value.pasos.forEach((paso: { paso: string, imagen: File | string; }, index: any) => {
-      console.log(paso);
       if (paso.imagen instanceof File) {
-        formData.append('imagen', paso.imagen);
+        formData.append('imagenesPasos', paso.imagen);
         paso.imagen = '/public/uploads/' + paso.imagen.name;         
-
       }
     });
     
     
     formData.append('pasos', JSON.stringify(this.recetaForm.value.pasos));
     formData.forEach((value, key) => {
-      console.log(key + ' ' + value);
     });
-  //Enviar la receta al servidor
   this.recetasService.updateReceta(formData).subscribe({
     next: (response) => {
       this.toastr.success(`${response.message}`, 'Receta');

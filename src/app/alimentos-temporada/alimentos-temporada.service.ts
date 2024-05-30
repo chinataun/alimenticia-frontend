@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, catchError, of, tap, throwError } from 'rxjs';
-import { Mes, Categorias, DetallesAlimentosTemporada } from '../interface/interface.component';
 import { Alimento } from './alimentos-temporada.interface';
 import { ToastrService } from 'ngx-toastr';
 import { environment } from 'src/environments/environment';
@@ -23,30 +22,9 @@ export class AlimentosTemporadaService {
   private productosSubject = new BehaviorSubject<any>({});
   productos$ = this.productosSubject.asObservable();
 
-  private apiUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com';  // Cambia esto a la URL de tu API
-
-  private backendUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/alimentos'; // Reemplaza con la URL de tu API
-
   constructor(private http: HttpClient,
     private httpClient: HttpClient, 
     private toastr: ToastrService) {}
-
-  obtenerTodosLosMeses(): Observable<Mes[]> {
-    return this.http.get<Mes[]>(`${this.baseUrl}/alimentoTemporada/meses`);
-  }
-
-  obtenerTodasLasCategorias(): Observable<Categorias[]> {
-    return this.http.get<Categorias[]>(`${this.baseUrl}/alimentoTemporada/categorias`);
-  }
-
-  obtenerAlimentosPorMesYCategoria(mes: string, categoria: string): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/alimentoTemporada/${mes}/${categoria}`);
-  }
-
-  obtenerDetallesAlimento(mes: string, categoria: string, nombre: string): Observable<DetallesAlimentosTemporada> {
-    return this.http.get<DetallesAlimentosTemporada>(`${this.baseUrl}/alimentoTemporada/${mes}/${categoria}/${nombre}`);
-  }
-
 
   getAlimentos(): Observable<Alimento[]> {
     return this.http.get<Alimento[]>(`${this.baseUrl}/api/alimentos/temporada`);

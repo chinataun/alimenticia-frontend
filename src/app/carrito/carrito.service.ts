@@ -37,7 +37,6 @@ export class CarritoService {
     // private authService: AuthService 
   ) {
     const storedCartItems = localStorage.getItem('cartItems');
-    console.log(JSON.parse(storedCartItems as string)); // Add type assertion here
     if (storedCartItems) {
       const cartItems = JSON.parse(storedCartItems);
       this.items.next(cartItems);
@@ -152,7 +151,6 @@ export class CarritoService {
       carrito: carritos
     }
     
-    // console.log(params);
     this.httpClient.post<any>(`${this.baseUrl}/api/user/compras`,params)
     .pipe(takeUntil(this.unsubscribe$)).subscribe
     (response => {

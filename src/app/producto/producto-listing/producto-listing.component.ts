@@ -47,7 +47,6 @@ export class ProductoListingComponent {
     event.preventDefault();
     this.productoService.getProductoSimilar(producto).subscribe(productos => {
       this.productos = Object.entries(productos).map(([key, value]) => ({key, value}));
-      console.log(this.productos);
       this.cd.detectChanges();
     });
   }

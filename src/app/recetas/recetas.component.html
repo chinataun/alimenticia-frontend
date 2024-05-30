@@ -22,22 +22,6 @@
       <mat-divider></mat-divider>
       </ng-container>
 
-
-<!-- <div class="recetas-container">
-  <app-receta-listing
-    *ngFor="let receta of recipes$ | async"
-    [receta]="receta"
-  ></app-receta-listing>
-</div> -->
-<!-- <mat-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</mat-option> -->
-<!-- <div class="container"> -->
-  <!-- <div class="categoria-wrapper" *ngIf="categorias">
-    <h2>Filter by category</h2>
-        <select (change)="onCategoryChange($event)">
-          <option value="">Todas</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nombre}}</option>
-        </select>
-  </div> -->
   <div class="categoria-wrapper" *ngIf="categorias">
     <button class="categoria" [ngClass]="{'activo': 0 === categoriaSeleccionada}" (click)="onCategorySelect(0)">
       Todas

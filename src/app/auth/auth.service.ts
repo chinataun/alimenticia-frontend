@@ -4,13 +4,10 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, EMPTY, Observable, throwError, map, of } from 'rxjs';
 import { LoginCredentials, SigninCredentials } from './login-credentials';
 import { environment } from '../../environments/environment';
-import { SuccessfulLoginDto } from './successful-login.dto';
 import { catchError, ignoreElements, switchMap, tap } from 'rxjs/operators';
-import { InvalidCredentialsError } from './errors';
 import { User, UserWithToken } from './model/user.interface';
 import { jwtDecode } from 'jwt-decode';
 import { ToastrService } from 'ngx-toastr';
-import { CarritoService } from '../carrito/carrito.service';
 import { UserProfile } from '../user/model/user-profile.interface';
 
 const USER_LOCAL_STORAGE_KEY = 'token';
@@ -85,7 +82,6 @@ export class AuthService {
     const params = new HttpParams().set('userId', String(payload.userId));
     return this.httpClient.get<UserProfile>(`${this.baseUrl}/api/user`, {params}).pipe(
       tap(user => {
-        console.log(user)
         this.userProfile.next(user);
       })
     )
@@ -118,7 +114,6 @@ export class AuthService {
 
   private decodeToken(userToken: string): UserWithToken {
     const p = jwtDecode(userToken);
-    console.log(p)
     const userInfo = jwtDecode(userToken) as User;
     return { ...userInfo, token: userToken };
   }

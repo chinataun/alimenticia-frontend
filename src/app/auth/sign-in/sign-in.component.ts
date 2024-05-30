@@ -1,9 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, AbstractControl, FormControl } from '@angular/forms';
-import { Usuario } from 'src/app/interface/interface.component';
 import { AuthService } from '../auth.service';
 import { SigninCredentials } from '../login-credentials';
-
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { passwordsMustBeEqual } from 'src/app/form-extensions';
@@ -29,7 +27,6 @@ export class SigninComponent {
   );
   errorMessage?: string;
   loading: boolean = false;
-  usuario: Usuario = {};
   // contrasena = new FormControl(null, [
   //   Validators.required,
   //   Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&#.$($)$-$_])[A-Za-z\d$@$!%*?&#.$($)$-$_]{8,15}$/),
@@ -68,9 +65,7 @@ export class SigninComponent {
 
   matchPassword(control: AbstractControl) {
     const password = control.get('password')?.value;
-    console.log(password);
     const confirmPassword = control.get('confirmarContrasena')?.value;
-    console.log(confirmPassword);
     if (password !== confirmPassword) {
       return { 'passwordMismatch': true };
     }
@@ -106,46 +101,5 @@ export class SigninComponent {
       },
     });
   }
-  // signIn(): void {
-  //   if (this.registerForm.invalid) {
-  //     console.log(this.registerForm);
-  //     console.log(this.registerForm.invalid);
-  //     return;
-  //   }
-  //   console.log(this.registerForm)
-  //   console.log(this.registerForm.get('nombre')?.value)
-  //   const formData = new FormData();
-  //   formData.append('nombre', this.registerForm.get('nombre')?.value);
-  //   formData.append('apodo', this.registerForm.get('apodo')?.value);
-  //   formData.append('email', this.registerForm.get('email')?.value);
-   
-
-  //   const contrasena = this.registerForm.get('contrasena')?.value;
-  //   const confirmarContrasena = this.registerForm.get('confirmarContrasena')?.value;
-  //   formData.append('contrasena', contrasena);
-  //   formData.append('confirmarContrasena', confirmarContrasena);
-  //   /**if (contrasena && confirmarContrasena && contrasena === confirmarContrasena) {
-  //     formData.append('contrasena', contrasena);
-  //     formData.append('confirmarContrasena', confirmarContrasena);
-  //   } else {
-  //     console.error('Las contraseñas no coinciden o son inválidas.');
-  //     return;
-  //   }
-  //   if (this.usuario.imagen) {
-  //     formData.append('imagen', this.usuario.imagen);
-  //   }*/
-  //   // Accediendo a los valores del FormData
-
-  //   this.usuariosService.registrarUsuario(formData).subscribe(
-  //     (respuesta) => {
-  //       console.log('Usuario registrado exitosamente:', respuesta);
-  //       // Puedes redirigir a la página de inicio de sesión u otra página aquí
-  //     },
-  //     (error) => {
-  //       console.error('Error al registrar usuario:', error);
-  //       // Manejar el error, mostrar un mensaje de error, etc.
-  //     }
-  //   );
-  // }
   
 }

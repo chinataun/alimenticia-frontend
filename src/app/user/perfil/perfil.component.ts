@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { ChangePasswordDialogComponent } from '../change-password-dialog/change-password-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { SupermercadoFAvoritoComponent } from '../supermercado-favorito/supermercado-favorito.component';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-perfil',
@@ -16,13 +17,14 @@ import { SupermercadoFAvoritoComponent } from '../supermercado-favorito/supermer
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PerfilComponent {
+  
+  baseUrl = environment.API_BASE_URL;
 
   user$: Observable<UserProfile | null> = this.userService.user_profile$;
   supermercados: any;
 
   // Update the type to include null
   imagePreview!: string | ArrayBuffer;
-  serverUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/'; 
   isLoading = false; // Nueva propiedad para rastrear el estado de carga de la imagen
 
   perfilForm = this.fb.group({
@@ -63,10 +65,9 @@ export class PerfilComponent {
 
   ngOnInit() {
     this.userService.user_profile$.subscribe(userProfiles => {
-      console.log(userProfiles)
       const {imagen,  ...userProfile } = userProfiles as UserProfile;
       this.perfilForm.patchValue(userProfile || {});
-      this.imagePreview = this.serverUrl + imagen;
+      this.imagePreview = this.baseUrl + '/' + imagen;
       
     }); 
   }
@@ -79,7 +80,6 @@ export class PerfilComponent {
     if (!file) {
       return;
     }
-    console.log(file);
     this.imageFile = file;
     const reader = new FileReader();
     this.isLoading = true;
@@ -104,7 +104,7 @@ export class PerfilComponent {
       formData.append('cp', this.perfilForm.value.cp!);
 
       if (this.imageFile) {        
-        formData.append('imagen', this.imageFile!);
+        formData.append('imagenPrincipal', this.imageFile!);
       } 
 
       this.perfilForm.markAsPending();
@@ -120,7 +120,6 @@ export class PerfilComponent {
     const dialogRef = this.dialog.open(ChangePasswordDialogComponent);
   
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       this.changePassword(result);
     });
   }

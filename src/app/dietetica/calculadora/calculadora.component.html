@@ -1,93 +1,81 @@
-<!-- app/components/calculadora-calorias/calculadora-calorias.component.html -->
 <div class="container">
 
   <div class="row">
     <div class="content">
-
     
-    <div *ngIf="resultado" class="resultado">
-      Calorías recomendadas: {{ resultado }}
-      <button mat-icon-button (click)="ocultarResultado()">
-        <mat-icon>close</mat-icon>
-      </button>
+      <div *ngIf="resultado" class="resultado">
+        <span>Calorías a consumir recomendadas: {{ resultado }}</span>      
+        <button mat-icon-button (click)="ocultarResultado()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+
+      <form class="form-grid" [formGroup]="calculadoraForm" (ngSubmit)="calcularCalorias()" #formDirective="ngForm" ngNativeValidate>
+        <div>
+          <mat-form-field subscriptSizing="dynamic">
+            <mat-label>Sexo</mat-label>
+            <mat-select name="sexo" formControlName="sexo">
+              <mat-option value="hombre">Hombre</mat-option>
+              <mat-option value="mujer">Mujer</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-form-error-container [forControl]="sexoControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Edad</mat-label>
+            <input matInput type="number" formControlName="edad" required />
+            <mat-hint>Introduce tu edad en años</mat-hint>
+          </mat-form-field>
+          <app-form-error-container [forControl]="edadControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Peso</mat-label>
+            <input matInput type="number" formControlName="peso" required />
+            <mat-hint>Introduce tu peso en kgs.</mat-hint>
+          </mat-form-field>
+          <app-form-error-container [forControl]="pesoControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Altura</mat-label>
+            <input matInput type="number" formControlName="altura" required />
+            <mat-hint>Introduce tu altura en cms.</mat-hint>
+          </mat-form-field>
+          <app-form-error-container [forControl]="alturaControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+
+        <div>
+          <mat-form-field>
+            <mat-label>Actividad Física</mat-label>
+            <mat-select name="actividadFisica" formControlName="actividadFisica">
+              <mat-option value="nada">Nada</mat-option>
+              <mat-option value="baja">Baja</mat-option>
+              <mat-option value="media">Media</mat-option>
+              <mat-option value="alta">Alta</mat-option>
+              <mat-option value="muy alta">Muy Alta</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <app-form-error-container [forControl]="actividadFisicaControl">
+              <app-form-error-msg forErrorCode="required"></app-form-error-msg>
+          </app-form-error-container>
+        </div>
+      
+        <button mat-flat-button color="primary" type="submit" [disabled]="calculadoraForm.invalid">Calcular Calorías</button>
+      </form>
     </div>
-
-
-    <form class="form-grid" [formGroup]="calculadoraForm" (ngSubmit)="calcularCalorias()" #formDirective="ngForm" ngNativeValidate>
-      <!-- <mat-form-field>
-        <mat-label>Sexo</mat-label>
-        <input matInput type="text" formControlName="sexo" required />
-        <app-form-error-container [forControl]="recetaForm">
-          <app-form-error-msg forErrorCode="emptyRecipeDontPublish"></app-form-error-msg>
-        </app-form-error-container>
-      </mat-form-field> -->
-      <div>
-        <mat-form-field subscriptSizing="dynamic">
-          <mat-label>Sexo</mat-label>
-          <mat-select name="sexo" formControlName="sexo">
-            <mat-option value="hombre">Hombre</mat-option>
-            <mat-option value="mujer">Mujer</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <app-form-error-container [forControl]="sexoControl">
-            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
-        </app-form-error-container>
-      </div>
-
-      <div>
-        <mat-form-field>
-          <mat-label>Edad</mat-label>
-          <input matInput type="number" formControlName="edad" required />
-          <mat-hint>Introduce tu edad en años</mat-hint>
-        </mat-form-field>
-        <app-form-error-container [forControl]="edadControl">
-            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
-        </app-form-error-container>
-      </div>
-
-      <div>
-        <mat-form-field>
-          <mat-label>Peso</mat-label>
-          <input matInput type="number" formControlName="peso" required />
-          <mat-hint>Introduce tu peso en kgs.</mat-hint>
-        </mat-form-field>
-        <app-form-error-container [forControl]="pesoControl">
-            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
-        </app-form-error-container>
-      </div>
-
-      <div>
-        <mat-form-field>
-          <mat-label>Altura</mat-label>
-          <input matInput type="number" formControlName="altura" required />
-          <mat-hint>Introduce tu altura en cms.</mat-hint>
-        </mat-form-field>
-        <app-form-error-container [forControl]="alturaControl">
-            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
-        </app-form-error-container>
-      </div>
-
-      <div>
-        <mat-form-field>
-          <mat-label>Actividad Física</mat-label>
-          <mat-select name="actividadFisica" formControlName="actividadFisica">
-            <mat-option value="nada">Nada</mat-option>
-            <mat-option value="baja">Baja</mat-option>
-            <mat-option value="media">Media</mat-option>
-            <mat-option value="alta">Alta</mat-option>
-            <mat-option value="muy alta">Muy Alta</mat-option>
-          </mat-select>
-        </mat-form-field>
-        <app-form-error-container [forControl]="actividadFisicaControl">
-            <app-form-error-msg forErrorCode="required"></app-form-error-msg>
-        </app-form-error-container>
-      </div>
-    
-      <button mat-flat-button color="primary" type="submit" [disabled]="calculadoraForm.invalid">Calcular Calorías</button>
-    </form>
-    <!-- <div *ngIf="caloriasRecomendadas !== undefined">
-      <p>Calorías Recomendadas: {{ caloriasRecomendadas }}</p>
-    </div>-->
-  </div>
   </div>
 </div>

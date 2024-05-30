@@ -17,7 +17,6 @@ export class NewRecetaComponent implements OnInit {
   @Output() recipeCreated = new EventEmitter<void>();
 
   imagePreview!: string | ArrayBuffer;
-  serverUrl = 'https://alimenticia-api-62c500e9b184.herokuapp.com/'; 
   isLoading = false; // Nueva propiedad para rastrear el estado de carga de la imagen
   categorias: any[] | undefined;
   supermercados: any[] = this.categoriaService.getSupermercadosActivos();
@@ -93,7 +92,6 @@ export class NewRecetaComponent implements OnInit {
     if (!file) {
       return;
     }
-    console.log(file);
     this.imageFile = file;
     const reader = new FileReader();
     this.isLoading = true;

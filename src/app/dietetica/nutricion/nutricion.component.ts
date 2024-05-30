@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewEncapsulation } from '@angular/core';
 import { EMPTY, Observable, catchError, finalize, map, of, tap, throwError } from 'rxjs';
 import { AppService } from 'src/app/app.service';
 import { ApiProduct, ApiResponse } from '../dietetica.interface';
@@ -17,13 +17,14 @@ export class NutricionComponent {
   termino: string = '';
   productName: string = '';
   productos$!: Observable<ApiProduct[]>;
-  totalProducts$: Observable<number>; // Deberías obtener este valor de la API
+  totalProducts$: Observable<number>;
   isLoading = false;
 
   constructor(
     private appService: AppService,
     private dieteticaService: DieteticaService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cd: ChangeDetectorRef
   ){
     this.totalProducts$ = this.dieteticaService.totalProducts$;
 
@@ -43,28 +44,28 @@ export class NutricionComponent {
 
   buscar(): void {
     this.termino = this.nutricionForm.get('termino')?.value;
-    console.log(this.termino)
-      this.searchProducts(this.termino);
+    this.searchProducts(this.termino);
     
   }
 
   pageChanged(event: PageEvent): void {
-    this.searchProducts(this.termino, event.pageIndex + 1);
+    this.searchProducts(this.termino, event.pageIndex + 1, event.pageSize);
   }
 
-  searchProducts(termino: string, page: number = 1): void {
-    // this.dieteticaService.searchProducts(termino, page);
-    // this.productos$ = this.dieteticaService.searchProducts(this.termino);this.dieteticaService.searchProducts(this.termino).subscribe();
+  searchProducts(termino: string, page: number = 1, pageSize: number = 10): void {
     this.isLoading = true;
-    this.productos$ = this.dieteticaService.searchProducts(termino, page).pipe(
+    this.dieteticaService.searchProducts(termino, page, pageSize).pipe(
       finalize(() => this.isLoading = false),
       catchError(error => {
         this.isLoading = false;
         console.error('Error al buscar productos', error);
         return EMPTY;
       })
-    );
-     
+    ).subscribe((response: ApiProduct[]) => {
+      this.productos$ = of(response.slice(0, pageSize)); // Asume que la respuesta es un array de productos
+      this.dieteticaService.totalProducts$ = of(response.length); // Asume que el total de productos es la longitud del array
+      this.cd.detectChanges();
+    });
   }
 
   

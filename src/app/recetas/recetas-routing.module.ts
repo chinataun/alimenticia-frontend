@@ -4,7 +4,6 @@ import { RecetasComponent } from './recetas.component';
 import { RecetaDetailsComponent } from './receta-details/receta-details.component';
 import { CommonModule } from '@angular/common';
 import { EditRecetaCompleteComponent } from './edit-receta-complete/edit-receta-complete.component';
-import { CreatedRecipesComponent } from './created-recipes/created-recipes.component';
 import { RecetasUserComponent } from './recetas-user/recetas-user.component';
 import { RecetasCategoriaComponent } from './recetas-categoria/recetas-categoria.component';
 

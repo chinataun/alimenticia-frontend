@@ -18,7 +18,6 @@ export class LoggingInterceptor implements HttpInterceptor {
   ): Observable<HttpEvent<unknown>> {
     const startedAt = Date.now();
     console.log(request)
-    console.log(next)
     return next.handle(request).pipe(
       finalize(() => {
         const timeElapsed = Date.now() - startedAt;

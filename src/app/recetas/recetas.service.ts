@@ -49,7 +49,6 @@ export class RecetasService {
     return this.httpClient.get<Receta[]>(`${this.baseUrl}/api/recetas`)
     .pipe(
       tap(results => {
-        console.log(results);
         this.recetasSubject.next(results);
       }),
       catchError((error) => {
@@ -97,7 +96,7 @@ export class RecetasService {
   }
   updateFavoriteRecipes(): void {
     this.getFavoriteRecipes().subscribe(
-      recipes => {this.favoriteRecipesSubject.next(recipes);console.log(recipes)}
+      recipes => {this.favoriteRecipesSubject.next(recipes);}
     );
   }
 
@@ -147,7 +146,6 @@ export class RecetasService {
     return this.httpClient.get<Receta[]>(`${this.baseUrl}/api/recetas/mis-recetas`, {params})
     .pipe(
       tap(results => {
-        console.log(results)
         this.createdRecipesSubject.next(results);
       }),
       catchError((error) => {
@@ -164,14 +162,13 @@ export class RecetasService {
   }
   updateCreatedRecipes(): void {
     this.getCreatedRecipes().subscribe(
-      recipes => {this.createdRecipesSubject.next(recipes); console.log(recipes) }
+      recipes => {this.createdRecipesSubject.next(recipes);}
     );
   }
   removeCreatedRecipe(receta: Receta): Observable<any> {
     const recetaId = receta.id;
     const userId = Number(this.userId);
     const credentials: FavoritesCredentials = { recetaId, userId };
-    console.log(credentials);
     return this.httpClient.post<any>(`${this.baseUrl}/api/recetas/removeCreated`, credentials).pipe(
       tap(() => this.updateCreatedRecipes()
       ),
@@ -259,11 +256,10 @@ export class RecetasService {
   
   getUserRecetas(id: string | null): Observable<Autor> {
     const params = new HttpParams().set('userId', id || '');
-   console.log(params);
+
     return this.httpClient.get<Autor>(`${this.baseUrl}/api/recetas/user`, {params})
       .pipe(
         tap(autor => {
-          console.log(autor);
           this.autor.next(autor);
         }),
         catchError((error) => {
@@ -285,7 +281,6 @@ export class RecetasService {
     // Utiliza el operador tap para emitir la receta actualizada a través de recetaSubject
     tap(
       (results) => {
-        console.log(results);
         this.recetaSubject.next(results.receta)
         this.toastr.success(results.message);
       }

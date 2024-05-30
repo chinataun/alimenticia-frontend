@@ -184,7 +184,6 @@ export class BuscadorComponent {
     .pipe(takeUntil(this.unsubscribe$))
     .pipe(filter(supermercado =>supermercado !== null))
     .subscribe(supermercado => {
-      console.log(supermercado);
       if (supermercado) {
         this.selectedSupermarket.next(supermercado);
       } else {

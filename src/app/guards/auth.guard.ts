@@ -13,15 +13,6 @@ export const authGuard: CanActivateFn = (route, state) => {
   return authService.isLoggedIn$.pipe(
     map((isloggedIn) => isloggedIn || router.createUrlTree(['/login'])
   ));
-  //if (authService.isAuth()) {
-  //  return true;
-  //} else {
-   //return  router.parseUrl('/login');
-  // return router.createUrlTree(['/login'])
-  //}
-
-
-  //return true;
 };
 
 export const authGuardChilds: CanActivateChildFn = (route, state) => {
@@ -31,13 +22,4 @@ export const authGuardChilds: CanActivateChildFn = (route, state) => {
   return authService.isLoggedIn$.pipe(
     map((isloggedIn) => isloggedIn || router.createUrlTree(['/login'])
   ));
-  //if (authService.isAuth()) {
-  //  return true;
-  //} else {
-   //return  router.parseUrl('/login');
-  // return router.createUrlTree(['/login'])
-  //}
-
-
-  //return true;
 };

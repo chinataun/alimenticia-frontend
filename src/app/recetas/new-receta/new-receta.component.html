@@ -32,7 +32,7 @@
             <app-form-error-msg forErrorCode="required"></app-form-error-msg>
         </app-form-error-container>
       </div>
-        <div class="form-element">
+      <div class="form-element">
         <mat-form-field subscriptSizing="dynamic">
           <mat-label>Tiempo de preparación</mat-label>
           <input matInput  type="number" formControlName="tiempo">
@@ -80,7 +80,9 @@
             <img [src]="imagePreview" class="image-avatar-preview" alt="Image preview">
             </ng-template> -->
         <input type="file" id="imagen" formControlName="imagen" (change)="onImageChange($event)">   
-      </div>
+
+        <mat-hint>Si no hay imagen se introducirá una imagen por defecto</mat-hint>
+    </div>
 
       <app-form-error-container [forControl]="recipeForm">
             <app-form-error-msg forErrorCode="invalidCredentials"></app-form-error-msg>

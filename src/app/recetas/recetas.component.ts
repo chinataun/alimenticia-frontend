@@ -72,20 +72,6 @@ export class RecetasComponent implements OnInit{
     this.dialog.open(NewRecetaComponent);  
   }
 
- 
-  // onCategoryChange(event: Event) {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   this.categoriaSeleccionada = selectElement.value;
-  //   console.log('Categoria seleccionada:', this.categoriaSeleccionada);
-
-  //   this.filteredRecetas$ = this.recetas$.pipe(
-  //     map(recetas => 
-  //       this.categoriaSeleccionada 
-  //         ? recetas.filter(receta => String(receta.categoriaId) == String(this.categoriaSeleccionada))
-  //         : recetas
-  //     )
-  //   );
-  // }
   onCategorySelect(categoriaId: number) {
     this.categoriaSeleccionada = categoriaId;
     this.filteredRecetas$ = this.recetas$.pipe(
@@ -97,29 +83,7 @@ export class RecetasComponent implements OnInit{
     );
   }
 
-  
-  // cambiarMesSeleccionado(mes: string) {
-  //   this.mesSeleccionado = mes;
-  //   this.alimentosFiltrados$ = this.alimentos$?.pipe(
-  //     map(alimentos => this.filtrarAlimentosPorCategoriaYMes(this.filtrarAlimentosPorCategoria(alimentos))),
-  //     tap(alimentosFiltrados => console.log('Alimentos filtrados:', alimentosFiltrados))
-
-  //   );
-  // }
-
-  // cambiarCategoriaSeleccionada(event: Event) {
-  //   const selectElement = event.target as HTMLSelectElement;
-  //   this.categoriaSeleccionada = selectElement.value;
-  //   this.alimentosFiltrados$ = this.alimentos$?.pipe(
-  //     map(alimentos => this.filtrarAlimentosPorCategoriaYMes(this.filtrarAlimentosPorCategoria(alimentos))),
-  //     tap(alimentosFiltrados => console.log('Alimentos filtrados:', alimentosFiltrados))
-
-  //   );
-  // }
-  // private filtrarAlimentosPorCategoria(alimentos: Alimento[]): Alimento[] {
-  //   return alimentos.filter(alimento => this.categoriaSeleccionada === 'all' || alimento.categoria.nombre === this.categoriaSeleccionada);
-  // }
-
+ 
   ngOnDestroy() {
     this.destroy$.next();
     this.destroy$.complete();

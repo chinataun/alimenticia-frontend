@@ -22,7 +22,6 @@ export class CarritosComponent {
   ngOnInit(): void {
     this.userService.getCarritos().subscribe(
       (carritos) => {
-        console.log(carritos);
         this.carritosVacio = carritos.length === 0;
       }
     );
@@ -39,11 +38,7 @@ export class CarritosComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         this.userService.eliminarCarrito(String(id)).subscribe(() => {
-          this.userService.getCarritos().subscribe(
-            (carritos) => {
-              console.log(carritos);
-            }
-          );
+          this.userService.getCarritos().subscribe();
         });
       }
     });

@@ -44,7 +44,6 @@ export class ProductoService {
     return this.httpClient.get<any[]>(`${this.baseUrl}/api/productos/buscar/${termino}`, {params})
     .pipe(
       tap(results => {
-        console.log(results);
         this.productosSubject.next(results);
       }),
       catchError((error) => {
@@ -61,8 +60,6 @@ export class ProductoService {
   };
 
   getProductoSimilar(producto: Producto): Observable<any> {
-    // producto.super = producto.super.toLowerCase();
-    console.log(JSON.stringify(producto));
     const params = new HttpParams().set('producto', JSON.stringify(producto));
     return this.httpClient.get<any[]>(`${this.baseUrl}/api/productos/similar/`, {params});
   }

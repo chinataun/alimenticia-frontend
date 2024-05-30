@@ -36,25 +36,6 @@ export class AuthHeaderInterceptor implements HttpInterceptor {
         );
       })
     );
-
-    /*
-    const authTokenNO = this.authService.authToken;
-    console.log(`el del servicio: ${authTokenNO}`)
-    const authToken = localStorage.getItem("token");
-    console.log(`el del storage: ${authToken}`)
-    if (authToken === null || this.isThirdPartyRequest(request.url)) {
-      console.log('null')
-      return next.handle(request);
-    }
-
-    const requestWithHeader = request.clone({
-      setHeaders: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    });
-    
-    return next.handle(requestWithHeader);
-  */
   }
 
   private isThirdPartyRequest(url: string): boolean {

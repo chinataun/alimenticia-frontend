@@ -17,7 +17,7 @@ import { AppService } from 'src/app/app.service';
 export class AlimentoDetailComponent {
   alimento$ =  this.alimentosTemporadaService.alimento$;
   productos$!: Observable<Productos>;
-
+  categoria = '';
   productos: Productos = {};
 
   supermercados: string[] = [];
@@ -45,22 +45,23 @@ getMesClass(mes: string, alimento: Alimento): string {
     // this.appService.changeBannerImage('assets/banner/4.svg');
 
     this.loading = true;
+    
     const nombre = this.route.snapshot.paramMap.get('nombre') ?? '';
-    this.appService.changeBannerImage('assets/banner/verduras/banner-' + nombre + '.png');
-    this.alimento$ = this.alimentosTemporadaService.getAlimento(nombre);
+    
+    this.alimento$ = this.alimentosTemporadaService.getAlimento(nombre).pipe(
+      tap((alimento: Alimento) => {
+        this.appService.changeBannerImage('assets/banner/' + alimento.categoria.nombre.toLowerCase() + '/banner-' + nombre + '.png');
+      }
+    ));
+    
     this.productos$ = this.alimentosTemporadaService.getBusquedaAlimento(nombre).pipe(
       
       tap((productos: Productos) => {
         this.productos = productos;
         this.supermercados = Object.keys(productos);
         this.loading = false;
-        // this.supermercados = Object.keys(productos);
       })
     );
-
-    // this.alimento$.subscribe(alimento => {
-    //   console.log('Alimento:', alimento);
-    // });
   }
 
   volver() {

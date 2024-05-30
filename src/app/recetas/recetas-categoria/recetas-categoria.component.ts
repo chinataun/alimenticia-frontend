@@ -37,9 +37,7 @@ export class RecetasCategoriaComponent {
     private appService: AppService,
   ) {
     this.appService.changeBannerImage('assets/banner/3.svg');
-      this.id = this.route.snapshot.paramMap.get('nombre');
-      console.log(this.id);
-     
+      this.id = this.route.snapshot.paramMap.get('nombre'); 
      }
      openNewRecipeDialog(): void {
       this.dialog.open(NewRecetaComponent);  

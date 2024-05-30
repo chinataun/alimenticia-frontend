@@ -7,7 +7,6 @@ import { NutricionComponent } from './nutricion/nutricion.component';
 const routes: Route[] = [
   { path: 'calculadora', component: CalculadoraComponent },
   { path: 'informacion-nutricional', component: NutricionComponent },
-  // { path: 'recipes/add', component: RecetasAddComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription, map, take } from 'rxjs';
 import { RecetasService } from '../recetas.service';
 import { AuthService } from 'src/app/auth/auth.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-receta-card',
@@ -24,6 +25,7 @@ export class RecetaCardComponent {
 
   category = this.route.snapshot.paramMap.get('nombre') || null;
 
+  baseUrl = environment.API_BASE_URL;
 
   constructor(
     private authService: AuthService,

@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, Subject, combineLatest, map, of, takeUntil
 import { AuthService } from 'src/app/auth/auth.service';
 import { UserProfile } from 'src/app/user/model/user-profile.interface';
 import { AppService } from 'src/app/app.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-receta-details',
@@ -15,7 +16,7 @@ import { AppService } from 'src/app/app.service';
   encapsulation: ViewEncapsulation.None
 })
 export class RecetaDetailsComponent implements OnInit{
-
+  baseUrl = environment.API_BASE_URL;
   isVoted$: Observable<{voted: boolean, rating?: number, comment?: string}> = of({voted: false});
   comentarioDelUsuario: string | null = null;
   // private voteInfo = new Subject<{voted: boolean, rating?: number, comment?: string}>();
@@ -25,6 +26,8 @@ export class RecetaDetailsComponent implements OnInit{
   rating$!: Observable<number>;
   private onDestroy$ = new Subject<void>();
   id!: number;
+  isLoggedInObservable$ = this.authService.isLoggedIn$;
+
   receta$ = this.recetasService.receta$;
   userId$: Observable<Number | undefined> = this.authService.userProfile$
     .pipe(
@@ -60,15 +63,11 @@ export class RecetaDetailsComponent implements OnInit{
   ngOnInit() {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
     this.receta$ = this.recetasService.getReceta(this.id);
-    this.receta$.subscribe(receta => {
-      // Aquí va tu código para manejar la receta actualizada...
-      console.log(receta)
-    });
+    this.receta$.subscribe();
 
 
     this.recetasService.isVoted(this.id).subscribe(
       (voted) => {
-        console.log('Votado:', voted);
         this.voteInfo.next(voted);
       }
     )
@@ -89,13 +88,11 @@ export class RecetaDetailsComponent implements OnInit{
 
 
   votar(rating: number, comment: string) {
-    console.log('Votando receta', this.id, rating, comment);
-    this.recetasService.votarReceta(this.id, rating, comment)
+       this.recetasService.votarReceta(this.id, rating, comment)
       .pipe(takeUntil(this.onDestroy$))
       .subscribe((response) => {
         this.recetasService.updateRecetaActualizada(response.receta);
         this.receta$ = this.recetasService.getReceta(this.id);
-        console.log(response.receta);
         this.voteInfo.next({voted: true, rating, comment});
       });
       this.cd.detectChanges();

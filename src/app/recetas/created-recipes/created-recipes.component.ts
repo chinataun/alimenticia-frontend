@@ -4,7 +4,6 @@ import { RecetasService } from '../recetas.service';
 import { ToastrService } from 'ngx-toastr';
 import { CategoriaReceta, Receta } from '../receta';
 import { Observable, Subject, combineLatest, map, takeUntil } from 'rxjs';
-import { EditRecetaComponent } from '../edit-receta/edit-receta.component';
 import { MatDialog } from '@angular/material/dialog';
 import { User } from 'src/app/auth/model/user.interface';
 import { NewRecetaComponent } from '../new-receta/new-receta.component';

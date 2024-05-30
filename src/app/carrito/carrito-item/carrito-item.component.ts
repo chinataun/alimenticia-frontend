@@ -14,9 +14,6 @@ export class CarritoItemComponent {
   @Output() carritoItemDelete = new EventEmitter<void>();
   constructor() {}
 
-  ngOnInit(): void {
-    console.log(this.carritoItem);
-  }
 
   onDeleteClicked(): void {
     this.carritoItemDelete.emit();

@@ -5,7 +5,7 @@
     <mat-card  [ngClass]="{'unpublish': !receta.status}">
       <mat-card-header>
         <div mat-card-avatar class="receta-header-image"   
-        [style.background-image]="'url(https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.autor.imagen + ')'"
+        [style.background-image]="'url(' + baseUrl + '/' + receta.autor.imagen + ')'"
         [style.background-size]="'cover'"
         [style.background-repeat]="'no-repeat'"
         [style.background-position]="'center'"></div>
@@ -30,7 +30,7 @@
       </mat-card-header>
 
       <mat-card-content>
-        <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-listing" alt="{{ receta.titulo }}">
+        <img mat-card-image [src]="baseUrl + '/' + receta.imagen" class="image-listing" alt="{{ receta.titulo }}">
         <mat-card-subtitle></mat-card-subtitle>
         <div class="atributos">
           <div class="tiempo"><mat-icon>schedule</mat-icon><span>{{ receta.tiempo }} min</span></div>

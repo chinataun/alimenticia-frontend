@@ -94,7 +94,6 @@ export class UserService {
 
   
   updateUser(userProfile: FormData): Observable<any> {
-    console.log(userProfile);
     return this.authService.getUserId().pipe(
       switchMap(userId => {
         userProfile.append('userId', String(userId));
@@ -187,7 +186,6 @@ export class UserService {
     const params = new HttpParams()
     .set('userId', String(this.user_id))
     .set('id', id);
-    console.log(params);
     return this.httpClient.delete<Carrito[]>(`${this.baseUrl}/api/user/compras`, {params}).pipe(
       tap((results) => {
         this.carritos.next(results);

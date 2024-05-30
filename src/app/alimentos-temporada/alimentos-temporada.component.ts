@@ -48,9 +48,7 @@ export class AlimentosTemporadaComponent implements OnInit, OnDestroy {
 
     this.appService.changeBannerImage('assets/banner/4.svg');
     this.alimentos$ = this.alimentosTemporadaService.getAlimentos().pipe(
-      tap(alimentos => console.log('Alimentos:', alimentos)),
       catchError(error => {
-        console.error('Error loading alimentos:', error);
         return of([]);
       }),
       shareReplay(1),
@@ -66,8 +64,6 @@ export class AlimentosTemporadaComponent implements OnInit, OnDestroy {
     this.mesSeleccionado = mes;
     this.alimentosFiltrados$ = this.alimentos$?.pipe(
       map(alimentos => this.filtrarAlimentosPorCategoriaYMes(this.filtrarAlimentosPorCategoria(alimentos))),
-      tap(alimentosFiltrados => console.log('Alimentos filtrados:', alimentosFiltrados))
-
     );
   }
 
@@ -76,8 +72,6 @@ export class AlimentosTemporadaComponent implements OnInit, OnDestroy {
     this.categoriaSeleccionada = selectElement.value;
     this.alimentosFiltrados$ = this.alimentos$?.pipe(
       map(alimentos => this.filtrarAlimentosPorCategoriaYMes(this.filtrarAlimentosPorCategoria(alimentos))),
-      tap(alimentosFiltrados => console.log('Alimentos filtrados:', alimentosFiltrados))
-
     );
   }
 

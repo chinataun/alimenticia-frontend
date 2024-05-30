@@ -7,7 +7,6 @@ import { AlimentoDetailComponent } from './alimento-detail/alimento-detail.compo
 const routes: Route[] = [
   { path: 'temporada', component: AlimentosTemporadaComponent },
   { path: ':nombre', component: AlimentoDetailComponent },
-  // { path: 'recipes/add', component: RecetasAddComponent, canActivate: [authGuard] },
 ];
 
 @NgModule({

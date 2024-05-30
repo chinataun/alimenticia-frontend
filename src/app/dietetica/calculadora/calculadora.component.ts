@@ -27,18 +27,14 @@ export class CalculadoraComponent implements OnInit {
   resultado: number | null = 0;
 
   @ViewChild('formDirective') private formDirective!: NgForm;
-
-
+  
   constructor(
     private appService: AppService,
-    private calculadoraService: DieteticaService, 
-    private authService: AuthService,   
-    private snackBar: MatSnackBar,
-    private formBuilder: FormBuilder) {}
+    private formBuilder: FormBuilder) {
+    this.appService.changeBannerImage('assets/banner/2.svg');
+    }
 
   ngOnInit(): void {
-    // this.appService.changeBannerImage('assets/banner/calculadora.png');
-    this.appService.changeBannerImage('assets/banner/2.svg');
     this.calculadoraForm = this.formBuilder.group({
       sexo: ['', Validators.required],
       edad: ['', [Validators.required, Validators.min(1)]],
@@ -67,7 +63,6 @@ export class CalculadoraComponent implements OnInit {
   get actividadFisicaControl(): FormControl {
     return this.calculadoraForm.get('actividadFisica') as FormControl;
   }
-
 
 
   ocultarResultado() {
@@ -111,49 +106,17 @@ export class CalculadoraComponent implements OnInit {
       default:
         break;
     }
-
-    this.resultado = parseFloat(caloriasRecomendadas.toFixed(2));
-    
-    // Object.keys(this.calculadoraForm.controls).forEach(key => {
-    //   const control = this.calculadoraForm.get(key);
-    //   if (control) {
-    //     control.markAsPristine();
-    //     control.markAsUntouched();
-    //   }
-    // });
-    // this.formDirective.resetForm();
-    console.log('Calorías recomendadas:', caloriasRecomendadas);
-
-
-
-    // this.calculadoraService.calcularCalorias(this.datosCalculadora).subscribe(
-    //   (response) => {
-    //     this.caloriasRecomendadas = response.caloriasRecomendadas;
-    //     this.mensajeGuardadoExitoso = undefined; // Reinicia el mensaje de éxito al calcular calorías
-    //   },
-    //   (error) => {
-    //     console.error('Error al calcular calorías:', error);
-    //   }
-    // );
+    this.resultado = parseFloat(caloriasRecomendadas.toFixed(2));  
+        
+    Object.keys(this.calculadoraForm.controls).forEach(key => {
+      const control = this.calculadoraForm.get(key);
+      if (control) {
+        control.markAsPristine();
+        control.markAsUntouched();
+      }
+    });
+    this.formDirective.resetForm();
   }
 
-  // calcularCaloriasUsuarioRegistrado() {
-    
-  //   if (this.authService.getUserIdIfAuthenticated()) {
-  //     this.calculadoraService
-  //       .calcularCaloriasUsuarioRegistrado(this.datosCalculadora)
-  //       .subscribe(
-  //         (response) => {
-  //           this.caloriasRecomendadas = response.caloriasRecomendadas;
-  //           this.mensajeGuardadoExitoso = '¡Calorías guardadas con éxito!';
-  //         },
-  //         (error) => {
-  //           console.error('Error al calcular calorías para usuario registrado:', error);
-  //         }
-  //       );
-  //   } else {
-  //     console.log('El usuario no está registrado. No se guardarán las calorías.');
-  //   }
-  // }
 }
 

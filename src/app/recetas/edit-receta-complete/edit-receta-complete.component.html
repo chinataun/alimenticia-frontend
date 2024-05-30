@@ -20,7 +20,16 @@
 
         <div class="receta-wrapper receta-detail__content">
           <div class="receta-wrapper__image receta-detail-content__image" *ngIf="receta">
-            <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-detail" >
+            <ng-container *ngIf="imagenDetailPreview as preview; else existingImage">
+              <img mat-card-image [src]="preview">
+            </ng-container>
+          
+            <ng-template #existingImage>
+                <img mat-card-image [src]="baseUrl + '/' + receta.imagen" class="image-detail" alt="Imagen actual de la receta">
+            </ng-template>
+            
+            <input type="file" #imageInput (change)="onFileDetailChange($event)">
+            <!-- <button mat-icon-button (click)="removeImageDetail(i)" title="Eliminar imagen"><mat-icon>hide_image</mat-icon></button> -->
           </div>
           <div class="receta-wrapper__content receta-detail-content__fields">
             <div class="form-element">
@@ -76,22 +85,7 @@
                   <app-form-error-msg forErrorCode="required"></app-form-error-msg>
               </app-form-error-container>
             </div>
-          </div>
-        <!-- <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + receta.imagen" class="image-detail" alt="{{ receta.titulo }}">
-        <p>{{ receta.descripcion }}</p>
-
-        <ul *ngIf="receta.ingredientes">
-          <li *ngFor="let ingrediente of receta.ingredientes">
-            {{ ingrediente.ingrediente }} | {{ ingrediente.cantidad }}
-          </li>
-        </ul>
-        <ul>
-          <li *ngFor="let paso of receta.pasos">
-            <p>{{ paso.paso }}</p>
-          </li>
-        </ul> -->
-
-      
+          </div>      
         </div>
       </div>
     </div>
@@ -167,7 +161,7 @@
           
             <ng-template #existingImage>
               <ng-container *ngIf="receta.pasos[i]?.imagen as existing; else noImage">
-                <img mat-card-image [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com' + existing" alt="Imagen actual de la receta">
+                <img mat-card-image [src]="baseUrl + existing" alt="Imagen actual de la receta">
               </ng-container>
             </ng-template>
           

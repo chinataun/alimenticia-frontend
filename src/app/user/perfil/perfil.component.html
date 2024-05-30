@@ -1,7 +1,7 @@
 <div class="left">
   <div class="user-info" *ngIf="user$ | async as user">
     <div class="user-image">
-      <img [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + user.imagen" alt="Imagen del autor">
+      <img [src]="baseUrl + '/' + user.imagen" alt="Imagen del autor">
       <h2>{{ user.nombre }} {{ user.apellidos }}</h2>
     </div>
     <div class="user-details">

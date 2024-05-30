@@ -1,65 +1,71 @@
-.mat-mdc-dialog-content.mdc-dialog__content.dialog-wrapper {
- display: flex;
- gap: 16px;
- display: flex;
- gap: 16px;
- flex-direction: column;
- align-items: center;
- justify-content: center;
-    .dialog-header {
-        display: flex;
-        flex-direction: column;
-        align-items: center;       
-    }
-    .dialog-supermercados {
-        display: flex;
-        align-items: stretch;
-        justify-content: space-between;
-   
-        .dialog-supermercados__super {
-            width: 24%;
-            border-radius: 12px;
-            justify-content: space-around;
-            align-items: center;
-            width: 24%;
-            max-width: 230px;
+:host {
+
+    .mat-mdc-dialog-content.mdc-dialog__content.dialog-wrapper {
+
+        .dialog-header {
             display: flex;
             flex-direction: column;
-            padding: 12px;
-            gap: 8px;
-            .imagen-super {
-                img {
-                    width: 150px;
-                    height: 100px;
-                }
-                &.not-choiced {
-                    filter: grayscale(100%);
-                    &:hover {
-                        filter: unset;
+            align-items: center;       
+            text-align: center;
+        }
+        .dialog-supermercados {
+
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            justify-content: space-around;
+            .dialog-supermercados__super {
+                border-radius: 12px;
+                align-items: center;
+
+                display: flex;
+                flex-direction: column;
+                padding: 12px;
+                gap: 8px;
+                .imagen-super {
+                    img {
+                        width: 150px;
+                        height: 100px;
+                    }
+                    &.not-choiced {
+                        filter: grayscale(100%);
+                        &:hover {
+                            filter: unset;
+                        }
                     }
                 }
-            }
-
-            
-            &:hover {
-                cursor: pointer;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); // Añade una sombra al hacer hover
-
+                .info-super {
+                    text-align: center;
+                }
+    
+                
+                &:hover {
+                    cursor: pointer;
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); // Añade una sombra al hacer hover
+    
+                }
             }
         }
     }
+       
 }
 
-@media screen and (max-width: 768px) {
-    .mat-mdc-dialog-content.mdc-dialog__content.dialog-wrapper {
-        justify-content: unset;
-        .dialog-supermercados {
-            flex-direction: column;
-            gap: 16px;
-            .dialog-supermercados__super {
-                width: 100%;
+@media screen and (min-width: 768px) {
+    :host {
+        .mat-mdc-dialog-content.mdc-dialog__content.dialog-wrapper {
+
+            .dialog-supermercados {
+                align-items: stretch;
+                justify-content: center;
+                flex-wrap: nowrap;
+                .dialog-supermercados__super {
+                    
+                    width: 24%;
+                    max-width: 230px;
+                }
             }
         }
     }
+
     
 }

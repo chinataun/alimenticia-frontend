@@ -18,6 +18,7 @@ export class CarritoComponent {
       this.cartVisible 
       && !event.target.closest('.cart-container') 
       && !event.target.closest('.cart-icon')
+      && !event.target.closest('.cart-icon-mobile')
       && !event.target.closest('.delete-item')
       && !event.target.closest('.addItem')
       

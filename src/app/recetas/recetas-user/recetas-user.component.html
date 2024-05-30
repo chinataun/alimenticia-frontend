@@ -2,7 +2,7 @@
   <ng-container *ngIf="autor$ | async as autor">
     <div class="user-info">
       <div class="user-image">
-        <img [src]="'https://alimenticia-api-62c500e9b184.herokuapp.com/' + autor.imagen" alt="Imagen del autor">
+        <img [src]="baseUrl + '/' + autor.imagen" alt="Imagen del autor">
       </div>
       <div class="user-details">
         <h2>{{ autor.nombre }} {{ autor.apellidos }}</h2>
