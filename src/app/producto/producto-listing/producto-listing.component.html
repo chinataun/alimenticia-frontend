@@ -27,11 +27,8 @@
       <img _ngcontent-ng-c2230171435="" width="30" height="30" alt="dia" src="assets/logo-{{ item.key }}.svg">
       <div *ngIf="item.value.productoMarcaSimilar; else noMarcaBlock">
         <p>{{ item.value.productoMarcaSimilar.nombre }}</p>
-        <p class="oferta" *ngIf="item.value.productoMarcaSimilar.precioOferta != 0.00; else precio"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoMarcaSimilar.precioOferta }} &euro;</span></p>
-        <ng-template #precio>
-          <p class="oferta" *ngIf="item.value.productoMarcaSimilar.precioOferta == -1.00; else precioA"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoMarcaSimilar.precioNormal }} &euro;</span></p>
-        </ng-template>
-        <ng-template #precioA>
+        <p class="oferta" *ngIf="item.value.productoMarcaSimilar.precioOferta != 0.00; else precioNormal"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoMarcaSimilar.precioOferta }} &euro;</span></p>
+        <ng-template #precioNormal>
           <p><span class="price">Precio:</span>{{ item.value.productoMarcaSimilar.precioNormal }} &euro;</p>
         </ng-template>
       </div>
@@ -39,11 +36,8 @@
       <ng-template #noMarcaBlock>
         <div *ngIf="item.value.productoSimilar; else noCoincidenciasBlock">
           <p>{{ item.value.productoSimilar.nombre }}</p>
-          <p *ngIf="item.value.productoSimilar.precioOferta != '0.00'; else precioM"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoSimilar.precioOferta }} &euro;</span></p>
-          <ng-template #precioM>
-            <p class="oferta" *ngIf="item.value.productoSimilar.precioOferta == '-1.00'; else precioMA"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoSimilar.precioNormal }} &euro;</span></p>
-          </ng-template>
-          <ng-template #precioMA>
+          <p *ngIf="item.value.productoSimilar.precioOferta != '0.00'; else precioNormal"><span class="price">Oferta:</span> <span class="oferta">{{ item.value.productoSimilar.precioOferta }} &euro;</span></p>
+          <ng-template #precioNormal>
             <p><span class="price">Precio:</span>{{ item.value.productoSimilar.precioNormal }} &euro;</p>
           </ng-template>
         </div>

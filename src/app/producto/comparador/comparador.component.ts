@@ -34,6 +34,7 @@ export class ComparadorComponent {
     this.cartService.hideCart();
     this.cartProducts$.pipe(
       tap((cartItems: CarritoItem[]) => {
+        this.cartSupermarket = cartItems[0].producto.supermercado;
         this.totalCarrito = cartItems.reduce((acc, item) => acc + (Number(item.producto.precioNormal) * item.cantidad), 0).toFixed(2) as any as number;
       })
     ).subscribe(
@@ -57,9 +58,15 @@ export class ComparadorComponent {
             let producto = productos[supermercado].productoSimilar;
             if (productos[supermercado].productoMarcaSimilar) {
               producto = productos[supermercado].productoMarcaSimilar;
+            }          
+            if (producto) {
+              result[supermercado] = { producto: producto, cantidad: item.cantidad, total: item.cantidad * producto.precioNormal };
+            } 
+            else {
+              result[supermercado] = { producto: producto, cantidad: item.cantidad, total: 0 };
             }
-            result[supermercado] = { producto: producto, cantidad: item.cantidad, total: item.cantidad * producto.precioNormal };
           }
+          console.log(result);
           return result;
         })
       )
@@ -95,16 +102,16 @@ export class ComparadorComponent {
       
       }
 
-    
-    if (cheapestSupermarket) {
-      this.carritoBarato = false;
-      this.productosSimilares[cheapestSupermarket].barato = true;
-    }
-    
-    if (mostExpensiveSupermarket) {
-      this.carritoCaro = false;
-      this.productosSimilares[mostExpensiveSupermarket].caro = true;
-    }
+      
+      if (this.cartSupermarket != cheapestSupermarket) {
+        this.carritoBarato = false;
+        this.productosSimilares[cheapestSupermarket].barato = true;
+      }
+      
+      if (this.cartSupermarket != mostExpensiveSupermarket) {
+        this.carritoCaro = false;
+        this.productosSimilares[mostExpensiveSupermarket].caro = true;
+      }
       this.loading = false;
       this.cd.detectChanges();
     });

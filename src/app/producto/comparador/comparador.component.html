@@ -32,7 +32,7 @@
                 <span class="cantidad"><span>Cantidad: </span>{{ carritoItem.cantidad }}</span>
               </div>
             </div>
-            <span class="total" [class.barato]="carritoBarato">Total: {{totalCarrito}}€</span>
+            <span class="total" [class.caro]="carritoCaro" [class.barato]="carritoBarato">Total: {{totalCarrito}}€</span>
           </div>
         </div>
       
@@ -42,19 +42,37 @@
               <img class="supermarket-logo" alt="supermarket logo" src="assets/logo-{{ supermercado }}.svg">
             </div>
             <div class="carrito-items" *ngFor = "let carritoItem of productosSimilares[supermercado].productos">
+              <ng-container *ngIf="carritoItem.producto !== null; else noProducto">
               <div class="content-info">
                 <img
                 src="{{ carritoItem.producto.imagen }}"
                 alt="{{ carritoItem.producto.nombre }}"
                 class="thumbnail"
               />
-                <span>{{ carritoItem.producto.nombre }}</span>
+                <span >{{ carritoItem.producto.nombre }}</span>
+
               </div>
               <div class="content-price">
                 <span class="price"><span>Precio: </span>{{ carritoItem.producto.precioNormal }} €</span>
         
                 <span class="cantidad"><span>Cantidad: </span>{{ carritoItem.cantidad }}</span>
               </div>
+              </ng-container>
+              <ng-template #noProducto>
+                  <div class="content-info">
+                    <img
+                    src="assets/no-image.png"
+                    alt=""
+                    class="thumbnail"
+                  />
+                    <span>No hay coincidencias</span>    
+                  </div>
+                  <div class="content-price">
+                    <span class="price" style="text-decoration: line-through;"><span>Precio: </span></span>
+            
+                    <span class="cantidad" style="text-decoration: line-through;"><span>Cantidad: </span></span>
+                  </div>
+              </ng-template>
             </div>
             <span class="total" [class.caro]="productosSimilares[supermercado].caro" [class.barato]="productosSimilares[supermercado].barato">Total: {{ productosSimilares[supermercado].total }}€</span>
           </div>
